@@ -4,6 +4,6 @@ void LightTower::Update () {
 
 }
 
-void LightTower::Draw () const {
+void LightTower::Draw () {
 
 }

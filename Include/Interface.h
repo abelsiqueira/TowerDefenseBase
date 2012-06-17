@@ -8,25 +8,28 @@
 #endif
 
 #include "Vector2.h"
-#include "Towers/Towers.h"
-#include "Enemies/Enemies.h"
+#include "Towers.h"
+#include "Enemies.h"
 #include <list>
 
 class Interface {
   public:
     Interface (int w = 1000, int h = 800) : mWindowSize(w, h), 
-      mListOfEnemies(), mListOfTowers(), mDrawingClass(w, h) {}
+      mListOfEnemies(), mListOfTowers(), 
+      mDrawingClass(new DrawingClass(w, h, this)) { }
     ~Interface () {};
 
     void Update ();
-    void Draw () const;
-    void Run () { mDrawingClass.Run(); }
+    void Draw ();
+    void Run ();
+
+    DrawingClass *Drawing () { return mDrawingClass; }
   private:
     Vector2i mWindowSize;
     std::list <Enemy*> mListOfEnemies;
     std::list <Tower*> mListOfTowers;
 
-    DrawingClass mDrawingClass;
+    DrawingClass *mDrawingClass;
 };
 
 #endif

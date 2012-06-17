@@ -4,6 +4,6 @@ void Skeleton::Update () {
 
 }
 
-void Skeleton::Draw () const {
+void Skeleton::Draw () {
 
 }

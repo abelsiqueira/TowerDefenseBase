@@ -13,7 +13,7 @@ class Skeleton : public Enemy {
     ~Skeleton () {};
 
     void Update ();
-    void Draw () const;
+    void Draw ();
   private:
 };
 

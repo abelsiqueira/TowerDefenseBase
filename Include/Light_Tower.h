@@ -1,7 +1,7 @@
 #ifndef light_tower_h
 #define light_tower_h
 
-#include "../Tower.h"
+#include "Tower.h"
 
 const float LightTowerRange  =  5.0;
 const float LightTowerSpeed  = 10.0;
@@ -14,7 +14,7 @@ class LightTower : public Tower {
     ~LightTower () {};
 
     void Update ();
-    void Draw () const;
+    void Draw ();
   protected:
 };
 
