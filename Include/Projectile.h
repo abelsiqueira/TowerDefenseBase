@@ -1,9 +1,9 @@
 #ifndef projectile_h
 #define projectile_h
 
-enum ProjectileType {
-  PT_LightProjectile
-};
+#include "Entity.h"
+
+enum ProjectileType { PT_None, PT_LightProjectile };
 
 class Projectile : public Entity {
   public:

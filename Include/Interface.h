@@ -12,7 +12,7 @@
 
 class Interface {
   public:
-    Interface (int w, int h) : WindowSize(w, h) {};
+    Interface (int w = 1000, int h = 800) : WindowSize(w, h) {};
     ~Interface () {};
 
     void Update ();

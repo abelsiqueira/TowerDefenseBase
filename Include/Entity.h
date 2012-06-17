@@ -14,6 +14,6 @@ class Entity {
     virtual ~Entity() {};
   protected:
     Vector2f mPosition;
-}
+};
 
 #endif

@@ -1,6 +1,8 @@
 #ifndef skeleton_h
 #define skeleton_h
 
+#include "Enemy.h"
+
 const float SkeletonSpeed  = 2.0;
 const int   SkeletonDamage = 1;
 
