@@ -8,8 +8,8 @@
 
 class DrawingClass {
   public:
-    DrawingClass ();
-    ~DrawingClass ();
+    DrawingClass (int, int) {}
+    ~DrawingClass () {}
 
     void DrawSquare (float x0, float y0, float x1, float y1) {}
     void DrawCircle (float cx, float cy, float r) {}

@@ -4,8 +4,7 @@
 int main () {
   Interface interface;
 
-  interface.Update ();
-  interface.Draw ();
+  interface.Run();
 
   return 0;
 }
