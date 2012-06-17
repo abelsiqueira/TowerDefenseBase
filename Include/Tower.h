@@ -15,8 +15,8 @@ class Tower : public Entity {
         mSpeed(speed), mDamage(damage), mPType(pt) {};
     virtual ~Tower () {};
 
-    virtual void Update ();
-    virtual void Draw () const;
+    virtual void Update () = 0;
+    virtual void Draw () const = 0;
   protected:
     float mRange, mSpeed;
     int mDamage;

@@ -19,8 +19,8 @@ class Interface {
     void Draw () const;
   private:
     Vector2i WindowSize;
-    std::list <Enemy> ListOfEnemies;
-    std::list <Tower> ListOfTowers;
+    std::list <Enemy*> ListOfEnemies;
+    std::list <Tower*> ListOfTowers;
 };
 
 #endif

@@ -9,8 +9,8 @@ class Enemy : public Entity {
       Entity(x, y), mSpeed(speed), mDamage(damage) {};
     virtual ~Enemy () {};
 
-    virtual void Update ();
-    virtual void Draw () const;
+    virtual void Update () = 0;
+    virtual void Draw () const = 0;
   protected:
     float mSpeed;
     int mDamage;
