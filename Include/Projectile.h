@@ -1,9 +1,8 @@
 #ifndef projectile_h
 #define projectile_h
 
-enum ProjectileTypes {
-  PT_Example1,
-  PT_Example2
+enum ProjectileType {
+  PT_LightProjectile
 };
 
 class Projectile : public Entity {
@@ -11,6 +10,9 @@ class Projectile : public Entity {
     Projectile (float x, float y, float tx, float ty, float speed = 0) :
       Entity(x, y), mTarget(tx, ty), mSpeed(speed) {};
     virtual ~Projectile () {};
+
+    virtual void Update ();
+    virtual void Draw () const;
   protected:
     Vector2f mTarget;
     float mSpeed;
