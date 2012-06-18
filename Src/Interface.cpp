@@ -33,3 +33,23 @@ void Interface::Draw () {
 void Interface::Run () {
   mDrawingClass->Run();
 }
+
+void Interface::CreateEnemy (EnemyType et, float x, float y) {
+  switch(et) {
+    case ET_Skeleton:
+      Skeleton *aux = new Skeleton(x, y);
+      aux->SetDrawingClass(mDrawingClass);
+      mListOfEnemies.push_back(aux);
+      break;
+  }
+}
+
+void Interface::CreateTower (TowerType tt, float x, float y) {
+  switch(tt) {
+    case TT_LightTower:
+      LightTower *aux = new LightTower(x, y);
+      aux->SetDrawingClass(mDrawingClass);
+      mListOfTowers.push_back(aux);
+      break;
+  }
+}

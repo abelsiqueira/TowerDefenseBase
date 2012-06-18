@@ -1,12 +1,6 @@
 #ifndef interface_h
 #define interface_h
 
-#ifndef GraphicLibrary
-#include "DummyDraw.h"
-#elif GraphicsLibrary == ALLEGRO
-#include "AllegroDraw.h"
-#endif
-
 #include "Vector2.h"
 #include "Towers.h"
 #include "Enemies.h"
@@ -24,6 +18,9 @@ class Interface {
     void Run ();
 
     DrawingClass *Drawing () { return mDrawingClass; }
+
+    void CreateEnemy (EnemyType, float, float);
+    void CreateTower (TowerType, float, float);
   private:
     Vector2i mWindowSize;
     std::list <Enemy*> mListOfEnemies;

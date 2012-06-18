@@ -5,7 +5,7 @@
 #include "Projectile.h"
 
 enum TowerType {
-  LightTower
+  TT_LightTower
 };
 
 class Tower : public Entity {
@@ -16,7 +16,7 @@ class Tower : public Entity {
     virtual ~Tower () {};
 
     virtual void Update () = 0;
-    virtual void Draw () const = 0;
+    virtual void Draw () = 0;
   protected:
     float mRange, mSpeed;
     int mDamage;

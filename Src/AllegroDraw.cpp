@@ -63,13 +63,13 @@ void DrawingClass::Run () {
   }
 }
 
-void DrawingClass::DrawSquare (float x0, float y0, float x1, float y1, int r, 
+void DrawingClass::DrawRectangle (float x0, float y0, float x1, float y1, int r, 
     int g, int b, int thick) {
   ALLEGRO_COLOR color = al_map_rgb(r, g, b);
   al_draw_rectangle(x0, y0, x1, y1, color, thick);
 }
 
-void DrawingClass::DrawFilledSquare (float x0, float y0, float x1, float y1, 
+void DrawingClass::DrawFilledRectangle (float x0, float y0, float x1, float y1, 
     int r, int g, int b) {
   ALLEGRO_COLOR color = al_map_rgb(r, g, b);
   al_draw_filled_rectangle(x0, y0, x1, y1, color);

@@ -16,9 +16,9 @@ class DrawingClass {
     void Run ();
 
     // Primitives
-    void DrawSquare (float x0, float y0, float x1, float y1, int r, int g,
+    void DrawRectangle (float x0, float y0, float x1, float y1, int r, int g,
         int b, int thick);
-    void DrawFilledSquare (float x0, float y0, float x1, float y1, int r, 
+    void DrawFilledRectangle (float x0, float y0, float x1, float y1, int r, 
         int g, int b);
     void DrawCircle (float cx, float cy, float radius, int r, int g, int b, int thick);
     void DrawFilledCircle (float cx, float cy, float radius, int r, int g, int b);
