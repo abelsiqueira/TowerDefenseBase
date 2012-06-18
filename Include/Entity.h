@@ -34,6 +34,8 @@ class Entity {
     Vector2f mPosition;
     Interface* mInterface;
     DrawingClass* mDrawingClass;
+
+    virtual void KillMe () {}
 };
 
 #endif

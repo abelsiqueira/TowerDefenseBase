@@ -1,15 +1,17 @@
 #include "Tower.h"
 #include "Interface.h"
+#include <iostream>
 
 void Tower::Update () {
   bool canAttack = false;
   mAttackCount += mSpeed;
-  if (mSpeed > ConstAttackThreshold) {
-    mSpeed -= ConstAttackThreshold;
+  if (mAttackCount > ConstAttackThreshold) {
+    mAttackCount -= ConstAttackThreshold;
     canAttack = true;
   }
   if (!canAttack)
     return;
+  std::cout << "Attack" << std::endl;
 
   Enemy *pEnemy = mInterface->GetEnemyInRange(mPosition, mRange);
   if (pEnemy == 0)

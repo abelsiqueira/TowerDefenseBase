@@ -1,4 +1,5 @@
 #include "Light_Tower.h"
+#include <iostream>
 
 void LightTower::Update () {
   Tower::Update();

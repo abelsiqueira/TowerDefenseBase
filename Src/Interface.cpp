@@ -2,6 +2,7 @@
 
 typedef std::list <Enemy*>::iterator EnemyIterator;
 typedef std::list <Tower*>::iterator TowerIterator;
+typedef std::list <Projectile*>::iterator ProjectileIterator;
 
 void Interface::Update () {
   EnemyIterator p = mListOfEnemies.begin(), pEnd = mListOfEnemies.end();
@@ -13,6 +14,20 @@ void Interface::Update () {
   while (q != qEnd) {
     (*q)->Update();
     q++;
+  }
+  ProjectileIterator r = mListOfProjectiles.begin(), rEnd = mListOfProjectiles.end();
+  while (r != rEnd) {
+    (*r)->Update();
+    r++;
+  }
+  std::list <Entity*>::iterator iter;
+  while (!mGarbageCollector.empty()) {
+    iter = mGarbageCollector.begin();
+    mListOfEnemies.remove((Enemy*)*iter);
+    mListOfTowers.remove((Tower*)*iter);
+    mListOfProjectiles.remove((Projectile*)*iter);
+    delete *iter;
+    mGarbageCollector.pop_front();
   }
 }
 
@@ -27,6 +42,11 @@ void Interface::Draw () {
   while (q != qEnd) {
     (*q)->Draw();
     q++;
+  }
+  ProjectileIterator r = mListOfProjectiles.begin(), rEnd = mListOfProjectiles.end();
+  while (r != rEnd) {
+    (*r)->Draw();
+    r++;
   }
 }
 
@@ -67,6 +87,7 @@ Enemy* Interface::GetEnemyInRange (Vector2f position, float range) {
       p = *iter;
       break;
     }
+    iter++;
   }
   return p;
 }
@@ -81,5 +102,44 @@ void Interface::CreateProjectile (ProjectileType pt, Vector2f origin, Vector2f t
       aux->SetInterface(this);
       mListOfProjectiles.push_back(aux);
       break;
+  }
+}
+
+void Interface::KillEnemy (Enemy *enemy) {
+  EnemyIterator iter = mListOfEnemies.begin(),
+                     iterEnd = mListOfEnemies.end();
+
+  while (iter != iterEnd) {
+    if (enemy == *iter) {
+      mListOfEnemies.erase(iter);
+      return;
+    }
+    iter++;
+  }
+}
+
+void Interface::KillTower (Tower *tower) {
+  TowerIterator iter = mListOfTowers.begin(),
+                     iterEnd = mListOfTowers.end();
+
+  while (iter != iterEnd) {
+    if (tower == *iter) {
+      mListOfTowers.erase(iter);
+      return;
+    }
+    iter++;
+  }
+}
+
+void Interface::KillProjectile (Projectile *projectile) {
+  ProjectileIterator iter = mListOfProjectiles.begin(),
+                     iterEnd = mListOfProjectiles.end();
+
+  while (iter != iterEnd) {
+    if (projectile == *iter) {
+      mGarbageCollector.push_back(*iter);
+      return;
+    }
+    iter++;
   }
 }

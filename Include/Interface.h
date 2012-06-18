@@ -25,11 +25,17 @@ class Interface {
     void CreateProjectile (ProjectileType, Vector2f, Vector2f);
 
     Enemy* GetEnemyInRange (Vector2f, float);
+
+    void KillEnemy (Enemy *);
+    void KillTower (Tower *);
+    void KillProjectile (Projectile *);
   private:
     Vector2i mWindowSize;
     std::list <Enemy*>      mListOfEnemies;
     std::list <Tower*>      mListOfTowers;
     std::list <Projectile*> mListOfProjectiles;
+
+    std::list <Entity*> mGarbageCollector;
 
     DrawingClass *mDrawingClass;
 };

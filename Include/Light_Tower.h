@@ -3,7 +3,7 @@
 
 #include "Tower.h"
 
-const float ConstLightTowerRange  = 50.0;
+const float ConstLightTowerRange  =150.0;
 const float ConstLightTowerSpeed  = 10.0;
 const int   ConstLightTowerDamage =  2.0;
 

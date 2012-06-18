@@ -3,8 +3,8 @@
 
 #include "Projectile.h"
 
-const float ConstLightProjectileSpeed  = 10.0;
-const int   ConstLightProjectileDamage =    2;
+const float ConstLightProjectileSpeed  = 5.0;
+const int   ConstLightProjectileDamage =   2;
 
 class LightProjectile : public Projectile {
   public:

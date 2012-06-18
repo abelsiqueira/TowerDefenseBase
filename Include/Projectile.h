@@ -20,6 +20,8 @@ class Projectile : public Entity {
     Vector2f mTarget;
     float mSpeed;
     int mDamage;
+
+    void KillMe ();
 };
 
 #endif
