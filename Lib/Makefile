@@ -14,11 +14,11 @@ GRAPHIC_LIB = -lallegro_ttf -lallegro_font -lallegro_primitives -lallegro \
 OBJS = $(TOWERS) $(ENEMIES) $(GRAPHICOBJ) $(INTERFACE)
 
 all: clear $(OBJS)
-	g++ ../main.cpp $(OBJS) $(GRAPHIC_LIB) -o teste $(I) $(CXXFLAGS)
+	g++ ../main.cpp $(OBJS) $(GRAPHIC_LIB) -o test $(I) $(CXXFLAGS)
 
 %.o: ../Src/%.cpp
 	$(CXX) -c -o $@ $< $(I) $(GRAPHIC_LIB) $(CXXFLAGS)
 
 clear:
-	rm -f teste
+	rm -f test
 	rm -f *.o
