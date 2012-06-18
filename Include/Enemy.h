@@ -13,8 +13,8 @@ class Enemy : public Entity {
       Entity(x, y), mSpeed(speed), mDamage(damage) {};
     virtual ~Enemy () {};
 
-    virtual void Update () = 0;
-    virtual void Draw () = 0;
+    virtual void Update ();
+    virtual void Draw ();
   protected:
     float mSpeed;
     int mDamage;

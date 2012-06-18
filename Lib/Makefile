@@ -3,8 +3,8 @@ CXXFLAGS = -Wall -Wextra -ggdb
 ROOTDIR = ..
 I = -I$(ROOTDIR)/Include -I$(ROOTDIR)/../Vector2/Include
 
-TOWERS = Light_Tower.o
-ENEMIES = Skeleton.o
+TOWERS = Light_Tower.o Tower.o
+ENEMIES = Skeleton.o Enemy.o
 INTERFACE = Interface.o
 
 GRAPHICOBJ = AllegroDraw.o

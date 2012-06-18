@@ -1,7 +1,7 @@
 #include "Light_Tower.h"
 
 void LightTower::Update () {
-
+  Tower::Update();
 }
 
 void LightTower::Draw () {

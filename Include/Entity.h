@@ -21,6 +21,8 @@ class Entity {
     virtual ~Entity() {};
 
     void SetDrawingClass (DrawingClass *d) { mDrawingClass = d; }
+    virtual void Update () = 0;
+    virtual void Draw () = 0;
   protected:
     Vector2f mPosition;
     DrawingClass* mDrawingClass;

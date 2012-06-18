@@ -1,7 +1,7 @@
 #include "Skeleton.h"
 
 void Skeleton::Update () {
-
+  Enemy::Update();
 }
 
 void Skeleton::Draw () {
