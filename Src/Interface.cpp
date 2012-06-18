@@ -1,14 +1,15 @@
 #include "Interface.h"
 
+typedef std::list <Enemy*>::iterator EnemyIterator;
+typedef std::list <Tower*>::iterator TowerIterator;
+
 void Interface::Update () {
-  std::list <Enemy*>::iterator p = mListOfEnemies.begin(),
-    pEnd = mListOfEnemies.end();
+  EnemyIterator p = mListOfEnemies.begin(), pEnd = mListOfEnemies.end();
   while (p != pEnd) {
     (*p)->Update();
     p++;
   }
-  std::list <Tower*>::iterator q = mListOfTowers.begin(),
-    qEnd = mListOfTowers.end();
+  TowerIterator q = mListOfTowers.begin(), qEnd = mListOfTowers.end();
   while (q != qEnd) {
     (*q)->Update();
     q++;
@@ -16,14 +17,13 @@ void Interface::Update () {
 }
 
 void Interface::Draw () {
-  std::list <Enemy*>::iterator p = mListOfEnemies.begin(),
+  EnemyIterator p = mListOfEnemies.begin(),
     pEnd = mListOfEnemies.end();
   while (p != pEnd) {
     (*p)->Draw();
     p++;
   }
-  std::list <Tower*>::iterator q = mListOfTowers.begin(),
-    qEnd = mListOfTowers.end();
+  TowerIterator q = mListOfTowers.begin(), qEnd = mListOfTowers.end();
   while (q != qEnd) {
     (*q)->Draw();
     q++;
@@ -39,6 +39,7 @@ void Interface::CreateEnemy (EnemyType et, float x, float y) {
     case ET_Skeleton:
       Skeleton *aux = new Skeleton(x, y);
       aux->SetDrawingClass(mDrawingClass);
+      aux->SetInterface(this);
       mListOfEnemies.push_back(aux);
       break;
   }
@@ -49,7 +50,27 @@ void Interface::CreateTower (TowerType tt, float x, float y) {
     case TT_LightTower:
       LightTower *aux = new LightTower(x, y);
       aux->SetDrawingClass(mDrawingClass);
+      aux->SetInterface(this);
       mListOfTowers.push_back(aux);
       break;
   }
+}
+
+Enemy* Interface::GetEnemyInRange (Vector2f position, float range) {
+  Enemy *p = 0;
+  EnemyIterator iter = mListOfEnemies.begin(), iterEnd = mListOfEnemies.end();
+  Vector2f enemyPosition;
+
+  while (iter != iterEnd) {
+    enemyPosition = (*iter)->GetPosition();
+    if (enemyPosition.Distance(position) <= range) {
+      p = *iter;
+      break;
+    }
+  }
+  return p;
+}
+
+void Interface::CreateProjectile (ProjectileType pt, Vector2f origin, Vector2f target) {
+  
 }

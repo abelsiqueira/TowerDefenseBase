@@ -21,6 +21,9 @@ class Interface {
 
     void CreateEnemy (EnemyType, float, float);
     void CreateTower (TowerType, float, float);
+
+    Enemy* GetEnemyInRange (Vector2f, float);
+    void CreateProjectile (ProjectileType, Vector2f, Vector2f);
   private:
     Vector2i mWindowSize;
     std::list <Enemy*> mListOfEnemies;
