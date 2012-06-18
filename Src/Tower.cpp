@@ -11,7 +11,6 @@ void Tower::Update () {
   }
   if (!canAttack)
     return;
-  std::cout << "Attack" << std::endl;
 
   Enemy *pEnemy = mInterface->GetEnemyInRange(mPosition, mRange);
   if (pEnemy == 0)

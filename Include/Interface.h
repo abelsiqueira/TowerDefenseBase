@@ -25,6 +25,7 @@ class Interface {
     void CreateProjectile (ProjectileType, Vector2f, Vector2f);
 
     Enemy* GetEnemyInRange (Vector2f, float);
+    bool ProjectileHitsEnemy (Projectile*);
 
     void KillEnemy (Enemy *);
     void KillTower (Tower *);

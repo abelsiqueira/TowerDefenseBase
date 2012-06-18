@@ -5,5 +5,6 @@ void Skeleton::Update () {
 }
 
 void Skeleton::Draw () {
+  Enemy::Draw();
   mDrawingClass->DrawFilledCircle(mPosition.x, mPosition.y, 7, 255, 150, 150);
 }

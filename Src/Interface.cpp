@@ -111,7 +111,7 @@ void Interface::KillEnemy (Enemy *enemy) {
 
   while (iter != iterEnd) {
     if (enemy == *iter) {
-      mListOfEnemies.erase(iter);
+      mGarbageCollector.push_back(*iter);
       return;
     }
     iter++;
@@ -124,7 +124,7 @@ void Interface::KillTower (Tower *tower) {
 
   while (iter != iterEnd) {
     if (tower == *iter) {
-      mListOfTowers.erase(iter);
+      mGarbageCollector.push_back(*iter);
       return;
     }
     iter++;
@@ -142,4 +142,16 @@ void Interface::KillProjectile (Projectile *projectile) {
     }
     iter++;
   }
+}
+
+bool Interface::ProjectileHitsEnemy (Projectile *projectile) {
+  EnemyIterator iter = mListOfEnemies.begin(),
+                iterEnd = mListOfEnemies.end();
+
+  while (iter != iterEnd) {
+    if ((*iter)->CollideWithProjectile(projectile))
+      return true;
+    iter++;
+  }
+  return false;
 }

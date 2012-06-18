@@ -2,6 +2,8 @@
 #include "Interface.h"
 
 void Projectile::Update () {
+  if (mInterface->ProjectileHitsEnemy(this))
+    KillMe();
   Vector2f dir(mTarget.x - mPosition.x, mTarget.y - mPosition.y);
   float norm = dir.Magnitude();
   if (norm < mSpeed)

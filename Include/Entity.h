@@ -35,7 +35,7 @@ class Entity {
     Interface* mInterface;
     DrawingClass* mDrawingClass;
 
-    virtual void KillMe () {}
+    virtual void KillMe () { throw("Dont call this"); }
 };
 
 #endif

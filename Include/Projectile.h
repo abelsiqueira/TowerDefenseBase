@@ -14,6 +14,7 @@ class Projectile : public Entity {
         Entity(origin), mTarget(target), mSpeed(speed), mDamage(damage) {};
     virtual ~Projectile () {};
 
+    int GetDamage () { return mDamage; }
     virtual void Update ();
     virtual void Draw ();
   protected:
