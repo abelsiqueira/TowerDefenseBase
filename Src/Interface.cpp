@@ -72,5 +72,14 @@ Enemy* Interface::GetEnemyInRange (Vector2f position, float range) {
 }
 
 void Interface::CreateProjectile (ProjectileType pt, Vector2f origin, Vector2f target) {
-  
+  switch (pt) {
+    case PT_None:
+      break;
+    case PT_LightProjectile:
+      LightProjectile *aux = new LightProjectile(origin, target);
+      aux->SetDrawingClass(mDrawingClass);
+      aux->SetInterface(this);
+      mListOfProjectiles.push_back(aux);
+      break;
+  }
 }

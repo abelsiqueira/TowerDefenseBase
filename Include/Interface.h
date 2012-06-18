@@ -4,6 +4,7 @@
 #include "Vector2.h"
 #include "Towers.h"
 #include "Enemies.h"
+#include "Projectiles.h"
 #include <list>
 
 class Interface {
@@ -19,15 +20,16 @@ class Interface {
 
     DrawingClass *Drawing () { return mDrawingClass; }
 
-    void CreateEnemy (EnemyType, float, float);
-    void CreateTower (TowerType, float, float);
+    void CreateEnemy      (EnemyType, float, float);
+    void CreateTower      (TowerType, float, float);
+    void CreateProjectile (ProjectileType, Vector2f, Vector2f);
 
     Enemy* GetEnemyInRange (Vector2f, float);
-    void CreateProjectile (ProjectileType, Vector2f, Vector2f);
   private:
     Vector2i mWindowSize;
-    std::list <Enemy*> mListOfEnemies;
-    std::list <Tower*> mListOfTowers;
+    std::list <Enemy*>      mListOfEnemies;
+    std::list <Tower*>      mListOfTowers;
+    std::list <Projectile*> mListOfProjectiles;
 
     DrawingClass *mDrawingClass;
 };

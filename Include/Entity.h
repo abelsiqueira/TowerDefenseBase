@@ -21,6 +21,7 @@ class Interface;
 class Entity {
   public:
     Entity (float x = 0, float y = 0) : mPosition(x, y) {};
+    Entity (Vector2f v) : mPosition(v) {};
     virtual ~Entity() {};
 
     Vector2f GetPosition () { return mPosition; }
