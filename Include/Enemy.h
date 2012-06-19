@@ -11,8 +11,8 @@ enum EnemyType {
 class Enemy : public Entity {
   public:
     Enemy (float x = 0, float y = 0, float speed = 0, int damage = 1, 
-        int health = 1) : Entity(x, y), mSpeed(speed), mDamage(damage), 
-        mHealth(health), mMaxHealth(health) {};
+        int health = 1, float bound = 1) : Entity(x, y), mSpeed(speed), mDamage(damage), 
+        mHealth(health), mMaxHealth(health), mBound(bound) {};
     virtual ~Enemy () {};
 
     virtual void Update ();
@@ -23,6 +23,8 @@ class Enemy : public Entity {
   protected:
     float mSpeed;
     int mDamage, mHealth, mMaxHealth;
+
+    float mBound;
 
     void KillMe ();
 };

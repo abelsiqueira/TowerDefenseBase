@@ -7,16 +7,17 @@ void Enemy::Update () {
 
 void Enemy::Draw () {
   int x = mPosition.x, y = mPosition.y;
-  float s = 7;
-  float life = -s + 2*s*((float) mHealth)/((float) mMaxHealth);
-  mDrawingClass->DrawFilledRectangle(x - s, y - s - 10, x + s, y - s - 5, 255, 0, 0);
-  mDrawingClass->DrawFilledRectangle(x - s, y - s - 10, x + life, y - s - 5, 0, 255, 0);
+  float life = -mBound + 2*mBound*((float) mHealth)/((float) mMaxHealth);
+  mDrawingClass->DrawFilledRectangle(x - mBound, y - mBound - 10, x + mBound, 
+      y - mBound - 5, 255, 0, 0);
+  mDrawingClass->DrawFilledRectangle(x - mBound, y - mBound - 10, x + life, 
+      y - mBound - 5, 0, 255, 0);
 }
 
 bool Enemy::CollideWithProjectile (Projectile *projectile) {
   Vector2f point = projectile->GetPosition();
   float d = point.Distance(mPosition);
-  if (d < 50) {
+  if (d < mBound) {
     Damage(projectile->GetDamage());
     return true;
   }
