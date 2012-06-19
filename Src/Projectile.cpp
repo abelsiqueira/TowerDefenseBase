@@ -7,7 +7,7 @@ void Projectile::Update () {
     return;
   }
   Vector2f dir(mTarget.x - mPosition.x, mTarget.y - mPosition.y);
-  if (dir.Dot(mDirection) < 0) {
+  if ( (dir.Dot(mDirection) < 0) && (dir.SqrMagnitude() > mSpeed) ) {
     KillMe();
     return;
   }

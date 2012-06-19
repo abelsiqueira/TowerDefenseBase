@@ -22,7 +22,7 @@ void Enemy::Draw () {
 bool Enemy::CollideWithProjectile (Projectile *projectile) {
   Vector2f point = projectile->GetPosition();
   float d = point.Distance(mPosition);
-  if (d < mBound) {
+  if (d <= mBound + 1) {
     Damage(projectile->GetDamage());
     return true;
   }

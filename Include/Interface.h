@@ -7,7 +7,7 @@
 #include "Projectiles.h"
 #include <list>
 
-const float ConstFps = 1.0/60.0;
+const float ConstFps = 1.0/180.0;
 
 class Interface {
   public:
