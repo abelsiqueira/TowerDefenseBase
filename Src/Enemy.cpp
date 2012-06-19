@@ -20,6 +20,8 @@ void Enemy::Draw () {
 }
 
 bool Enemy::CollideWithProjectile (Projectile *projectile) {
+  if (mHealth <= 0)
+    return false;
   Vector2f point = projectile->GetPosition();
   float d = point.Distance(mPosition);
   if (d <= mBound + 1) {
