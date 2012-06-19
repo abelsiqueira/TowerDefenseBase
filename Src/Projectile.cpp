@@ -2,14 +2,16 @@
 #include "Interface.h"
 
 void Projectile::Update () {
-  if (mInterface->ProjectileHitsEnemy(this))
+  if (mInterface->ProjectileHitsEnemy(this)) {
     KillMe();
+    return;
+  }
   Vector2f dir(mTarget.x - mPosition.x, mTarget.y - mPosition.y);
-  float norm = dir.Magnitude();
-  if (norm < mSpeed)
+  if (dir.Dot(mDirection) < 0) {
     KillMe();
-  dir.Scale(1.0/norm);
-  mPosition.Update(mSpeed, dir);
+    return;
+  }
+  mPosition.Update(mSpeed, mDirection);
 }
 
 void Projectile::Draw () {

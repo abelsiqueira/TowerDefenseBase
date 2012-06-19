@@ -7,7 +7,7 @@ DrawingClass::DrawingClass (int w, int h, Interface *interface) {
   mDisplay = al_create_display(w, h);
   al_set_window_title(mDisplay, "Tower Defense");
   mEventQueue = al_create_event_queue();
-  mTimer = al_create_timer (1.0/30.0);
+  mTimer = al_create_timer (ConstFps);
 
   mInterface = interface;
 

@@ -7,9 +7,11 @@
 #include "Projectiles.h"
 #include <list>
 
+const float ConstFps = 1.0/60.0;
+
 class Interface {
   public:
-    Interface (int w = 1000, int h = 800) : mWindowSize(w, h), 
+    Interface (int w = 1000, int h = 800) : mWindowSize(w, h), mHome(w, h/2),
       mListOfEnemies(), mListOfTowers(), 
       mDrawingClass(new DrawingClass(w, h, this)) { }
     ~Interface () {};
@@ -32,6 +34,7 @@ class Interface {
     void KillProjectile (Projectile *);
   private:
     Vector2i mWindowSize;
+    Vector2f mHome;
     std::list <Enemy*>      mListOfEnemies;
     std::list <Tower*>      mListOfTowers;
     std::list <Projectile*> mListOfProjectiles;

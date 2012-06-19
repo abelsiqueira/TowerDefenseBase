@@ -2,7 +2,12 @@
 #include "Interface.h"
 
 void Enemy::Update () {
-
+  Vector2f direction(mTarget);
+  direction.Update(-1, mPosition);
+  float norm = direction.Magnitude();
+  if (norm < mSpeed)
+    KillMe();
+  mPosition.Update(mSpeed/norm, direction);
 }
 
 void Enemy::Draw () {

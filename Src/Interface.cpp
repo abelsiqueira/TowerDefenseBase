@@ -57,7 +57,7 @@ void Interface::Run () {
 void Interface::CreateEnemy (EnemyType et, float x, float y) {
   switch(et) {
     case ET_Skeleton:
-      Skeleton *aux = new Skeleton(x, y);
+      Skeleton *aux = new Skeleton(mHome, x, y);
       aux->SetDrawingClass(mDrawingClass);
       aux->SetInterface(this);
       mListOfEnemies.push_back(aux);
