@@ -21,5 +21,5 @@ void Tower::Update () {
 
 void Tower::Draw () {
   int x = mPosition.x, y = mPosition.y;
-  mDrawingClass->DrawCircle(x, y, mRange, 150, 150, 150, 1);
+//  mDrawingClass->DrawCircle(x, y, mRange, 25, 25, 25, 1);
 }

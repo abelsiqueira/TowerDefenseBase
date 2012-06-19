@@ -6,13 +6,13 @@
 int main () {
   srand(time(0));
   Interface interface;
-  int numEnemies = 4, numTowers = 4;
+  int numEnemies = 4, numTowers = 20;
 
   for (int i = 0; i < numEnemies; i++)
-    interface.CreateEnemy (ET_Skeleton,   0, i*800/(numEnemies-1));
+    interface.CreateEnemy(ET_Skeleton,   0, i*800/(numEnemies-1));
 
   for (int i = 0; i < numTowers; i++)
-    interface.CreateTower (TT_LightTower, 300 + rand()%400, rand()%800);
+    interface.CreateTower(TT_LightTower, 400, 50 + i*750/(numTowers-1));
 
   interface.Run();
 
