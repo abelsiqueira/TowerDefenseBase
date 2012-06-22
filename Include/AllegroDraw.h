@@ -5,6 +5,9 @@ typedef void (*pVoidFVoid) (void);
 
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_primitives.h>
+#include <allegro5/allegro_ttf.h>
+#include <allegro5/allegro_font.h>
+#include <string>
 #include "Vectors.h"
 
 class Interface;
@@ -17,6 +20,7 @@ class DrawingClass {
     void Run ();
 
     // Primitives
+    void Write (float x0, float y0, std::string str, int r, int g, int b);
     void DrawLine (float x0, float y0, float x1, float y1, int r, int g, int b,
         int thick);
     void DrawRectangle (float x0, float y0, float x1, float y1, int r, int g,
@@ -27,6 +31,9 @@ class DrawingClass {
     void DrawFilledCircle (float cx, float cy, float radius, int r, int g, int b);
 
     //Primitives with Vector2f for positions
+    void Write (Vector2f p, std::string str, int r, int g, int b) {
+      Write(p.x, p.y, str, r, g, b);
+    }
     void DrawLine (Vector2f p0, Vector2f p1, int r, int g, int b, int thick) {
       DrawLine(p0.x, p0.y, p1.x, p1.y, r, g, b, thick);
     }
@@ -44,6 +51,9 @@ class DrawingClass {
     }
 
     ///Primitives with Vector3i for color
+    void Write (float x0, float y0, std::string str, Vector3i color) {
+      Write(x0, y0, str, color.x, color.y, color.z);
+    }
     void DrawLine (float x0, float y0, float x1, float y1, Vector3i color, int thick) {
       DrawLine(x0, y0, x1, y1, color.x, color.y, color.z, thick);
     }
@@ -61,6 +71,9 @@ class DrawingClass {
     }
 
     //Primitives with Vector2f for positions and Vector3i for color
+    void Write (Vector2f p, std::string str, Vector3i color) {
+      Write(p.x, p.y, str, color.x, color.y, color.z);
+    }
     void DrawLine (Vector2f p0, Vector2f p1, Vector3i color, int thick) {
       DrawLine(p0.x, p0.y, p1.x, p1.y, color.x, color.y, color.z, thick);
     }
@@ -84,6 +97,7 @@ class DrawingClass {
     ALLEGRO_DISPLAY *mDisplay;
     ALLEGRO_EVENT_QUEUE *mEventQueue;
     ALLEGRO_TIMER *mTimer;
+    ALLEGRO_FONT *mFont;
 
     Interface *mInterface;
 };

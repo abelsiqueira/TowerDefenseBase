@@ -1,4 +1,5 @@
 #include "Interface.h"
+#include <sstream>
 
 typedef std::list <Enemy*>::iterator EnemyIterator;
 typedef std::list <Tower*>::iterator TowerIterator;
@@ -310,9 +311,12 @@ void Interface::DrawHud () {
   if (!mWaves.empty()) {
     float timeUntilNextWave = mFramesBetweenWaves - mWaveTimer;
     timeUntilNextWave /= ConstFps;
-    float ratio = ConstFps*timeUntilNextWave/mFramesBetweenWaves;
+    timeUntilNextWave *= 10;
+    timeUntilNextWave = ((int)timeUntilNextWave)/10.0;
+    std::stringstream aux;
+    aux << timeUntilNextWave;
 
-    mDrawingClass->DrawFilledRectangle (10, 10, 110, 30, 0, 50, 0);
-    mDrawingClass->DrawFilledRectangle (10, 10, 10 + 100*ratio, 30, 0, 200, 0);
+    mDrawingClass->Write(10, 10, aux.str(), 255, 255, 255);
+
   }
 }

@@ -11,6 +11,8 @@ DrawingClass::DrawingClass (int w, int h, Interface *interface) {
 
   mInterface = interface;
 
+  al_init_font_addon();
+  al_init_ttf_addon();
   al_init_primitives_addon();
   al_install_mouse();
   al_install_keyboard();
@@ -19,9 +21,12 @@ DrawingClass::DrawingClass (int w, int h, Interface *interface) {
   al_register_event_source(mEventQueue, al_get_timer_event_source(mTimer));
   al_register_event_source(mEventQueue, al_get_mouse_event_source());
   al_register_event_source(mEventQueue, al_get_keyboard_event_source());
+
+  mFont = al_load_font("DejaVuSans.ttf", 12, 0);
 }
 
 DrawingClass::~DrawingClass () {
+  al_destroy_font(mFont);
   al_destroy_timer(mTimer);
   al_destroy_event_queue(mEventQueue);
   al_destroy_display(mDisplay);
@@ -61,6 +66,11 @@ void DrawingClass::Run () {
       al_flip_display();
     }
   }
+}
+
+void DrawingClass::Write (float x0, float y0, std::string str, int r, int g, int b) {
+  ALLEGRO_COLOR color = al_map_rgb(r, g, b);
+  al_draw_text(mFont, color, x0, y0, ALLEGRO_ALIGN_CENTRE, str.c_str());
 }
 
 void DrawingClass::DrawLine (float x0, float y0, float x1, float y1, int r, 
