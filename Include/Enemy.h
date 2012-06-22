@@ -22,6 +22,10 @@ class Enemy : public Entity {
 
     bool CollideWithProjectile (Projectile *);
     void Damage (int);
+    void SetPath (std::list<Vector2f>::iterator begin,
+        std::list<Vector2f>::iterator end) {
+      mPath.assign(begin, end);
+    }
   protected:
     float mSpeed;
     int mDamage, mHealth, mMaxHealth;

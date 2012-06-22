@@ -5,8 +5,20 @@ void Enemy::Update () {
   Vector2f direction(mTarget);
   direction.Update(-1, mPosition);
   float norm = direction.Magnitude();
-  if (norm < mSpeed)
+  if (norm < mSpeed) {
     KillMe();
+    return;
+  }
+  if (mPath.empty()) {
+    return;
+  }
+  direction = *mPath.begin();
+  direction.Update(-1, mPosition);
+  norm = direction.Magnitude();
+  if (norm < mSpeed) {
+    mPath.pop_front();
+    return;
+  }
   mPosition.Update(mSpeed/norm, direction);
 }
 

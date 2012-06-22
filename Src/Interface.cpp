@@ -33,6 +33,27 @@ void Interface::Update () {
 
 void Interface::Draw () {
   //Grid draw
+  int numLines = mWindowSize.x/ConstTileSize;
+  int numColumns = mWindowSize.y/ConstTileSize;
+  Vector3i color(30, 30, 30);
+
+  for (int i = 1; i <= numLines; i++) {
+    mDrawingClass->DrawLine(i*ConstTileSize, 0, i*ConstTileSize, mWindowSize.y, color, 1);
+  }
+  for (int j = 1; j <= numColumns; j++) {
+    mDrawingClass->DrawLine(0, j*ConstTileSize, mWindowSize.x, j*ConstTileSize, color, 1);
+  }
+
+  std::list <Vector2f>::const_iterator iter = mPath.begin(), tmp,
+    iterEnd = mPath.end();
+  while (iter != iterEnd) {
+    tmp = iter;
+    iter++;
+    if (iter == iterEnd)
+      break;
+    mDrawingClass->DrawLine(*tmp, *iter, 139, 69, 19, 1.5*ConstTileSize);
+  }
+
   EnemyIterator p = mListOfEnemies.begin(),
     pEnd = mListOfEnemies.end();
   while (p != pEnd) {
@@ -49,6 +70,7 @@ void Interface::Draw () {
     (*r)->Draw();
     r++;
   }
+
 }
 
 void Interface::Run () {
@@ -61,12 +83,30 @@ void Interface::CreateEnemy (EnemyType et, float x, float y) {
       Skeleton *aux = new Skeleton(mHome, x, y);
       aux->SetDrawingClass(mDrawingClass);
       aux->SetInterface(this);
+      aux->SetPath(mPath.begin(), mPath.end());
+      mListOfEnemies.push_back(aux);
+      break;
+  }
+}
+
+void Interface::CreateEnemy (EnemyType et) {
+  int x = mPath.front().x, y = mPath.front().y;
+  switch(et) {
+    case ET_Skeleton:
+      Skeleton *aux = new Skeleton(mHome, x, y);
+      aux->SetDrawingClass(mDrawingClass);
+      aux->SetInterface(this);
+      aux->SetPath(mPath.begin(), mPath.end());
       mListOfEnemies.push_back(aux);
       break;
   }
 }
 
 void Interface::CreateTower (TowerType tt, float x, float y) {
+  x = static_cast<int>(x/ConstTileSize)*ConstTileSize;
+  y = static_cast<int>(y/ConstTileSize)*ConstTileSize;
+  x += ConstTileSize/2;
+  y += ConstTileSize/2;
   switch(tt) {
     case TT_LightTower:
       LightTower *aux = new LightTower(x, y);

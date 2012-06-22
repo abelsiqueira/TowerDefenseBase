@@ -24,6 +24,7 @@ class Interface {
     DrawingClass *Drawing () { return mDrawingClass; }
 
     void CreateEnemy      (EnemyType, float, float);
+    void CreateEnemy      (EnemyType);
     void CreateTower      (TowerType, float, float);
     void CreateProjectile (ProjectileType, Vector2f, Vector2f);
 
@@ -33,6 +34,14 @@ class Interface {
     void KillEnemy (Enemy *);
     void KillTower (Tower *);
     void KillProjectile (Projectile *);
+
+    void AddToPath (Vector2f p) {
+      mPath.push_back(p);
+    }
+    void AddToPath (float x, float y) {
+      Vector2f aux(x,y);
+      mPath.push_back(aux);
+    }
   private:
     Vector2i mWindowSize;
     Vector2f mHome;
@@ -41,6 +50,7 @@ class Interface {
     std::list <Projectile*> mListOfProjectiles;
 
     std::list <Entity*> mGarbageCollector;
+    std::list <Vector2f> mPath;
 
     DrawingClass *mDrawingClass;
 };
