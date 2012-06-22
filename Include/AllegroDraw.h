@@ -77,7 +77,10 @@ class DrawingClass {
       DrawFilledCircle(c.x, c.y, radius, color.x, color.y, color.z);
     }
 
+    void Done () { mDone = true; }
   private:
+    bool mDone;
+
     ALLEGRO_DISPLAY *mDisplay;
     ALLEGRO_EVENT_QUEUE *mEventQueue;
     ALLEGRO_TIMER *mTimer;

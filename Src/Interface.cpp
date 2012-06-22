@@ -60,21 +60,20 @@ void Interface::CleanTheGarbageCollector () {
 }
 
 void Interface::Update () {
-  static int waveTimer = mFramesBetweenWaves, enemyTimer = 0;
-  waveTimer++; enemyTimer++;
-  if ( (waveTimer > mFramesBetweenWaves) && (!mWaves.empty()) ) {
+  mWaveTimer++; mEnemyTimer++;
+  if ( (mWaveTimer > mFramesBetweenWaves) && (!mWaves.empty()) ) {
     EnemyIterator begin = mWaves.front().begin(),
                   end   = mWaves.front().end();
     mEnemiesToBeCreated.insert(mEnemiesToBeCreated.end(), begin, end);
     mWaves.pop_front();
-    waveTimer -= mFramesBetweenWaves;
-    enemyTimer = 0;
+    mWaveTimer -= mFramesBetweenWaves;
+    mEnemyTimer = 0;
   }
 
-  if ( (enemyTimer > mFramesBetweenEnemies) && (!mEnemiesToBeCreated.empty()) ) {
+  if ( (mEnemyTimer > mFramesBetweenEnemies) && (!mEnemiesToBeCreated.empty()) ) {
     mListOfEnemies.push_back(mEnemiesToBeCreated.front());
     mEnemiesToBeCreated.pop_front();
-    enemyTimer -= mFramesBetweenEnemies;
+    mEnemyTimer -= mFramesBetweenEnemies;
   }
 
   EnemyIterator p = mListOfEnemies.begin(), pEnd = mListOfEnemies.end();
@@ -93,6 +92,9 @@ void Interface::Update () {
     r++;
   }
   CleanTheGarbageCollector();
+
+  if ( (mWaves.empty()) && mEnemiesToBeCreated.empty() && mListOfEnemies.empty() )
+    mDrawingClass->Done();
 }
 
 void Interface::Draw () {
@@ -134,7 +136,7 @@ void Interface::Draw () {
     (*r)->Draw();
     r++;
   }
-
+  DrawHud();
 }
 
 void Interface::Run () {
@@ -302,4 +304,15 @@ bool Interface::ProjectileHitsEnemy (Projectile *projectile) {
     iter++;
   }
   return false;
+}
+
+void Interface::DrawHud () {
+  if (!mWaves.empty()) {
+    float timeUntilNextWave = mFramesBetweenWaves - mWaveTimer;
+    timeUntilNextWave /= ConstFps;
+    float ratio = ConstFps*timeUntilNextWave/mFramesBetweenWaves;
+
+    mDrawingClass->DrawFilledRectangle (10, 10, 110, 30, 0, 50, 0);
+    mDrawingClass->DrawFilledRectangle (10, 10, 10 + 100*ratio, 30, 0, 200, 0);
+  }
 }

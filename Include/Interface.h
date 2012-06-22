@@ -20,6 +20,8 @@ class Interface {
       mDrawingClass(new DrawingClass(w, h, this)) { 
         mFramesBetweenWaves = 6*ConstFps;
         mFramesBetweenEnemies = ConstFps;
+        mWaveTimer = mFramesBetweenWaves;
+        mEnemyTimer = 0;
     }
     ~Interface ();
 
@@ -54,6 +56,7 @@ class Interface {
     Vector2i mWindowSize;
     Vector2f mHome;
     int mFramesBetweenWaves, mFramesBetweenEnemies;
+    int mWaveTimer, mEnemyTimer;
 
     std::list <Enemy*>      mListOfEnemies;
     std::list <Tower*>      mListOfTowers;
@@ -68,6 +71,7 @@ class Interface {
     DrawingClass *mDrawingClass;
 
     void CleanTheGarbageCollector ();
+    void DrawHud ();
 };
 
 #endif

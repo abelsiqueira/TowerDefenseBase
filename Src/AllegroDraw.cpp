@@ -22,16 +22,16 @@ DrawingClass::DrawingClass (int w, int h, Interface *interface) {
 }
 
 DrawingClass::~DrawingClass () {
-  al_destroy_display(mDisplay);
-  al_destroy_event_queue(mEventQueue);
   al_destroy_timer(mTimer);
+  al_destroy_event_queue(mEventQueue);
+  al_destroy_display(mDisplay);
 }
 
 void DrawingClass::Run () {
-  bool done = false, redraw = false;
+  bool redraw = false;
 
   al_start_timer(mTimer);
-  while (!done) {
+  while (!mDone) {
     ALLEGRO_EVENT ev;
     al_wait_for_event(mEventQueue, &ev);
 
@@ -39,13 +39,13 @@ void DrawingClass::Run () {
       mInterface->Update();
       redraw = true;
     } else if (ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE)
-      done = true;
+      mDone = true;
     else if (ev.type == ALLEGRO_EVENT_MOUSE_BUTTON_UP) {
     } else if (ev.type == ALLEGRO_EVENT_KEY_DOWN) {
       switch (ev.keyboard.keycode) {
         case ALLEGRO_KEY_ESCAPE:
         case ALLEGRO_KEY_Q:
-          done = true;
+          mDone = true;
           break;
         default:
           break;
