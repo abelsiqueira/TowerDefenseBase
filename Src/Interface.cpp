@@ -11,6 +11,12 @@ Interface::~Interface () {
       mGarbageCollector.push_back(*iter);
       iter++;
     }
+    iter = mEnemiesToBeCreated.begin();
+    iterEnd = mEnemiesToBeCreated.end();
+    while (iter != iterEnd) {
+      mGarbageCollector.push_back(*iter);
+      iter++;
+    }
   }
   {
     TowerIterator iter = mListOfTowers.begin(), iterEnd = mListOfTowers.end();
@@ -36,6 +42,7 @@ Interface::~Interface () {
     wIter++;
   }
   CleanTheGarbageCollector();
+  delete mDrawingClass;
 }
 
 
