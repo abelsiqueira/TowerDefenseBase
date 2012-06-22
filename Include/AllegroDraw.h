@@ -5,8 +5,7 @@ typedef void (*pVoidFVoid) (void);
 
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_primitives.h>
-#include "Vector2.h"
-#include "Vector3.h"
+#include "Vectors.h"
 
 class Interface;
 

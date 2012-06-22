@@ -1,7 +1,7 @@
 #ifndef entity_h
 #define entity_h
 
-#include "Vector2.h"
+#include "Vectors.h"
 #ifndef GraphicLibrary
 #include "DummyDraw.h"
 #elif GraphicLibrary == ALLEGRO
