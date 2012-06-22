@@ -8,6 +8,7 @@
 #include <list>
 
 const float ConstFps = 1.0/180.0;
+const float ConstTileSize = 30.0;
 
 class Interface {
   public:

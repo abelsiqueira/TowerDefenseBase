@@ -3,6 +3,7 @@
 
 #include "Entity.h"
 #include "Projectile.h"
+#include <list>
 
 enum EnemyType {
   ET_Skeleton
@@ -26,6 +27,7 @@ class Enemy : public Entity {
     int mDamage, mHealth, mMaxHealth;
     float mBound;
     Vector2f mTarget;
+    std::list <Vector2f> mPath;
 
     void KillMe ();
 };

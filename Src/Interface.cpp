@@ -32,6 +32,7 @@ void Interface::Update () {
 }
 
 void Interface::Draw () {
+  //Grid draw
   EnemyIterator p = mListOfEnemies.begin(),
     pEnd = mListOfEnemies.end();
   while (p != pEnd) {

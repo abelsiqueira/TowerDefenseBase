@@ -63,6 +63,12 @@ void DrawingClass::Run () {
   }
 }
 
+void DrawingClass::DrawLine (float x0, float y0, float x1, float y1, int r, 
+    int g, int b, int thick) {
+  ALLEGRO_COLOR color = al_map_rgb(r, g, b);
+  al_draw_line(x0, y0, x1, y1, color, thick);
+}
+
 void DrawingClass::DrawRectangle (float x0, float y0, float x1, float y1, int r, 
     int g, int b, int thick) {
   ALLEGRO_COLOR color = al_map_rgb(r, g, b);
