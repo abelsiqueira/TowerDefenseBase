@@ -6,7 +6,7 @@
 int main () {
   srand(time(0));
   Interface interface;
-  int numEnemies = 1, numTowers = 3;
+  int numTowers = 3;
 
   interface.AddToPath(0, 400);
   interface.AddToPath(400, 400);
@@ -15,8 +15,11 @@ int main () {
   interface.AddToPath(600, 400);
   interface.AddToPath(1000, 400);
 
-  for (int i = 0; i < numEnemies; i++)
-    interface.CreateEnemy(ET_Skeleton);
+  interface.CreateEnemy(1, ET_Skeleton);
+  interface.CreateEnemy(1, ET_Skeleton);
+  interface.CreateEnemy(2, ET_Skeleton);
+  interface.CreateEnemy(2, ET_Skeleton);
+  interface.CreateEnemy(2, ET_Skeleton);
 
   for (int i = 0; i < numTowers; i++)
     interface.CreateTower(TT_LightTower, 400, 50 + i*700/(numTowers-1));

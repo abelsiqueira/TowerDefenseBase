@@ -7,15 +7,21 @@
 #include "Projectiles.h"
 #include <list>
 
-const float ConstFps = 1.0/180.0;
+typedef std::list <Enemy*> Wave;
+typedef unsigned int uint;
+
+const uint ConstFps = 180;
 const float ConstTileSize = 30.0;
 
 class Interface {
   public:
     Interface (int w = 1000, int h = 800) : mWindowSize(w, h), mHome(w, h/2),
       mListOfEnemies(), mListOfTowers(), 
-      mDrawingClass(new DrawingClass(w, h, this)) { }
-    ~Interface () {};
+      mDrawingClass(new DrawingClass(w, h, this)) { 
+        mFramesBetweenWaves = 6*ConstFps;
+        mFramesBetweenEnemies = ConstFps;
+    }
+    ~Interface ();
 
     void Update ();
     void Draw ();
@@ -23,6 +29,8 @@ class Interface {
 
     DrawingClass *Drawing () { return mDrawingClass; }
 
+    void CreateEnemy      (uint, EnemyType, float, float);
+    void CreateEnemy      (uint, EnemyType);
     void CreateEnemy      (EnemyType, float, float);
     void CreateEnemy      (EnemyType);
     void CreateTower      (TowerType, float, float);
@@ -45,14 +53,21 @@ class Interface {
   private:
     Vector2i mWindowSize;
     Vector2f mHome;
+    int mFramesBetweenWaves, mFramesBetweenEnemies;
+
     std::list <Enemy*>      mListOfEnemies;
     std::list <Tower*>      mListOfTowers;
     std::list <Projectile*> mListOfProjectiles;
+
+    std::list < Wave > mWaves;
+    std::list <Enemy*> mEnemiesToBeCreated;
 
     std::list <Entity*> mGarbageCollector;
     std::list <Vector2f> mPath;
 
     DrawingClass *mDrawingClass;
+
+    void CleanTheGarbageCollector ();
 };
 
 #endif

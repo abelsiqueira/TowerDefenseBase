@@ -4,7 +4,72 @@ typedef std::list <Enemy*>::iterator EnemyIterator;
 typedef std::list <Tower*>::iterator TowerIterator;
 typedef std::list <Projectile*>::iterator ProjectileIterator;
 
+Interface::~Interface () {
+  {
+    EnemyIterator iter = mListOfEnemies.begin(), iterEnd = mListOfEnemies.end();
+    while (iter != iterEnd) {
+      mGarbageCollector.push_back(*iter);
+      iter++;
+    }
+  }
+  {
+    TowerIterator iter = mListOfTowers.begin(), iterEnd = mListOfTowers.end();
+    while (iter != iterEnd) {
+      mGarbageCollector.push_back(*iter);
+      iter++;
+    }
+  }
+  {
+    ProjectileIterator iter = mListOfProjectiles.begin(), iterEnd = mListOfProjectiles.end();
+    while (iter != iterEnd) {
+      mGarbageCollector.push_back(*iter);
+      iter++;
+    }
+  }
+  std::list<Wave>::iterator wIter = mWaves.begin(), wEnd = mWaves.end();
+  while (wIter != wEnd) {
+    EnemyIterator iter = wIter->begin(), iterEnd = wIter->end();
+    while (iter != iterEnd) {
+      mGarbageCollector.push_back(*iter);
+      iter++;
+    }
+    wIter++;
+  }
+  CleanTheGarbageCollector();
+}
+
+
+
+void Interface::CleanTheGarbageCollector () {
+  std::list <Entity*>::iterator iter;
+  while (!mGarbageCollector.empty()) {
+    iter = mGarbageCollector.begin();
+    mListOfEnemies.remove((Enemy*)*iter);
+    mListOfTowers.remove((Tower*)*iter);
+    mListOfProjectiles.remove((Projectile*)*iter);
+    delete *iter;
+    mGarbageCollector.pop_front();
+  }
+}
+
 void Interface::Update () {
+  static int waveTimer = mFramesBetweenWaves, enemyTimer = 0;
+  waveTimer++; enemyTimer++;
+  if ( (waveTimer > mFramesBetweenWaves) && (!mWaves.empty()) ) {
+    EnemyIterator begin = mWaves.front().begin(),
+                  end   = mWaves.front().end();
+    mEnemiesToBeCreated.insert(mEnemiesToBeCreated.end(), begin, end);
+    mWaves.pop_front();
+    waveTimer -= mFramesBetweenWaves;
+    enemyTimer = 0;
+  }
+
+  if ( (enemyTimer > mFramesBetweenEnemies) && (!mEnemiesToBeCreated.empty()) ) {
+    mListOfEnemies.push_back(mEnemiesToBeCreated.front());
+    mEnemiesToBeCreated.pop_front();
+    enemyTimer -= mFramesBetweenEnemies;
+  }
+
   EnemyIterator p = mListOfEnemies.begin(), pEnd = mListOfEnemies.end();
   while (p != pEnd) {
     (*p)->Update();
@@ -20,15 +85,7 @@ void Interface::Update () {
     (*r)->Update();
     r++;
   }
-  std::list <Entity*>::iterator iter;
-  while (!mGarbageCollector.empty()) {
-    iter = mGarbageCollector.begin();
-    mListOfEnemies.remove((Enemy*)*iter);
-    mListOfTowers.remove((Tower*)*iter);
-    mListOfProjectiles.remove((Projectile*)*iter);
-    delete *iter;
-    mGarbageCollector.pop_front();
-  }
+  CleanTheGarbageCollector();
 }
 
 void Interface::Draw () {
@@ -75,6 +132,49 @@ void Interface::Draw () {
 
 void Interface::Run () {
   mDrawingClass->Run();
+}
+
+void Interface::CreateEnemy (uint wave, EnemyType et, float x, float y) {
+  //Add enemy to the mWaves
+  while (mWaves.size() < wave) {
+    Wave aux;
+    mWaves.push_back(aux);
+  }
+  std::list<Wave>::iterator iter = mWaves.begin();
+  for (uint i = 1; i < wave; i++)
+    iter++;
+  
+  switch(et) {
+    case ET_Skeleton:
+      Skeleton *aux = new Skeleton(mHome, x, y);
+      aux->SetDrawingClass(mDrawingClass);
+      aux->SetInterface(this);
+      aux->SetPath(mPath.begin(), mPath.end());
+      iter->push_back(aux);
+      break;
+  }
+}
+
+void Interface::CreateEnemy (uint wave, EnemyType et) {
+  //Add enemy to the mWaves
+  while (mWaves.size() < wave) {
+    Wave aux;
+    mWaves.push_back(aux);
+  }
+  std::list<Wave>::iterator iter = mWaves.begin();
+  for (uint i = 1; i < wave; i++)
+    iter++;
+  
+  int x = mPath.front().x, y = mPath.front().y;
+  switch(et) {
+    case ET_Skeleton:
+      Skeleton *aux = new Skeleton(mHome, x, y);
+      aux->SetDrawingClass(mDrawingClass);
+      aux->SetInterface(this);
+      aux->SetPath(mPath.begin(), mPath.end());
+      iter->push_back(aux);
+      break;
+  }
 }
 
 void Interface::CreateEnemy (EnemyType et, float x, float y) {
