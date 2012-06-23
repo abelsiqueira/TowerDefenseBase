@@ -22,7 +22,7 @@ DrawingClass::DrawingClass (int w, int h, Interface *interface) {
   al_register_event_source(mEventQueue, al_get_mouse_event_source());
   al_register_event_source(mEventQueue, al_get_keyboard_event_source());
 
-  mFont = al_load_font("DejaVuSans.ttf", 12, 0);
+  mFont = al_load_font("DejaVuSans.ttf", 16, 0);
 }
 
 DrawingClass::~DrawingClass () {
@@ -68,9 +68,20 @@ void DrawingClass::Run () {
   }
 }
 
-void DrawingClass::Write (float x0, float y0, std::string str, int r, int g, int b) {
+void DrawingClass::Write (float x0, float y0, std::string str, int r, int g, int b,
+    FontAlignment fa) {
   ALLEGRO_COLOR color = al_map_rgb(r, g, b);
-  al_draw_text(mFont, color, x0, y0, ALLEGRO_ALIGN_CENTRE, str.c_str());
+  switch (fa) {
+    case FA_left:
+      al_draw_text(mFont, color, x0, y0, ALLEGRO_ALIGN_LEFT, str.c_str());
+      break;
+    case FA_center:
+      al_draw_text(mFont, color, x0, y0, ALLEGRO_ALIGN_CENTRE, str.c_str());
+      break;
+    case FA_right:
+      al_draw_text(mFont, color, x0, y0, ALLEGRO_ALIGN_RIGHT, str.c_str());
+      break;
+  }
 }
 
 void DrawingClass::DrawLine (float x0, float y0, float x1, float y1, int r, 

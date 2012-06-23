@@ -5,7 +5,7 @@
 
 int main () {
   srand(time(0));
-  Interface interface;
+  Interface interface(1000,800);
   int numTowers = 3;
 
   interface.AddToPath(0, 400);

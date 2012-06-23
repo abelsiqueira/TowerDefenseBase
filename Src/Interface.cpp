@@ -311,12 +311,13 @@ void Interface::DrawHud () {
   if (!mWaves.empty()) {
     float timeUntilNextWave = mFramesBetweenWaves - mWaveTimer;
     timeUntilNextWave /= ConstFps;
-    timeUntilNextWave *= 10;
-    timeUntilNextWave = ((int)timeUntilNextWave)/10.0;
+    timeUntilNextWave = (int) timeUntilNextWave;
     std::stringstream aux;
+//    aux.precision(3);
+    aux << "Next Wave: ";
     aux << timeUntilNextWave;
 
-    mDrawingClass->Write(10, 10, aux.str(), 255, 255, 255);
+    mDrawingClass->Write(10, 10, aux.str(), 255, 255, 255, FA_left);
 
   }
 }

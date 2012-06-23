@@ -20,6 +20,6 @@ void Tower::Update () {
 }
 
 void Tower::Draw () {
-  int x = mPosition.x, y = mPosition.y;
+//  int x = mPosition.x, y = mPosition.y;
 //  mDrawingClass->DrawCircle(x, y, mRange, 25, 25, 25, 1);
 }

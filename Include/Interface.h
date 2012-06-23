@@ -5,6 +5,7 @@
 #include "Towers.h"
 #include "Enemies.h"
 #include "Projectiles.h"
+#include "Definitions.h"
 #include <list>
 
 typedef std::list <Enemy*> Wave;
@@ -15,7 +16,7 @@ const float ConstTileSize = 30.0;
 
 class Interface {
   public:
-    Interface (int w = 1000, int h = 800) : mWindowSize(w, h), mHome(w, h/2),
+    Interface (int w = 640, int h = 480) : mWindowSize(w, h), mHome(w, h/2),
       mListOfEnemies(), mListOfTowers(), 
       mDrawingClass(new DrawingClass(w, h, this)) { 
         mFramesBetweenWaves = 6*ConstFps;
