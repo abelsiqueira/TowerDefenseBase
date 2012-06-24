@@ -310,21 +310,39 @@ bool Interface::ProjectileHitsEnemy (Projectile *projectile) {
 }
 
 void Interface::DrawHud () {
+  float border = 8;
+  mDrawingClass->DrawFilledRectangle(mMapSize.x, 0, mWindowSize.x, mMapSize.y, 0, 150, 0);
+  mDrawingClass->DrawFilledRectangle(mMapSize.x + border, border, 
+      mWindowSize.x - border, mMapSize.y - border, 140, 150, 150);
+
   if (!mWaves.empty()) {
     float timeUntilNextWave = mFramesBetweenWaves - mWaveTimer;
     timeUntilNextWave /= ConstFps;
     timeUntilNextWave = (int) timeUntilNextWave;
     std::stringstream aux;
-//    aux.precision(3);
     aux << "Next Wave: ";
+    aux.fill('0');
+    aux.width(2);
     aux << timeUntilNextWave;
 
-    mDrawingClass->Write(10, 10, aux.str(), 255, 255, 255, FA_left);
+    float x = mMapSize.x + (mWindowSize.x - mMapSize.x)/2;
+    mDrawingClass->Write(x, 10, aux.str(), 
+        255, 255, 255, FA_center);
 
   }
-
-  float border = 8;
-  mDrawingClass->DrawFilledRectangle(mMapSize.x, 0, mWindowSize.x, mMapSize.y, 0, 150, 0);
-  mDrawingClass->DrawFilledRectangle(mMapSize.x + border, border, 
-      mWindowSize.x - border, mMapSize.y - border, 140, 150, 150);
+  float x = mMapSize.x + (mWindowSize.x - mMapSize.x)/2,
+        y = 100;
+  float dif = mTileSize*1.5;
+  LightTower lightTower1(this, x - dif, y);
+  LightTower lightTower2(this, x      , y);
+  LightTower lightTower3(this, x + dif, y);
+  LightTower lightTower4(this, x - dif, y + dif);
+  LightTower lightTower5(this, x      , y + dif);
+  LightTower lightTower6(this, x + dif, y + dif);
+  lightTower1.Draw();
+  lightTower2.Draw();
+  lightTower3.Draw();
+  lightTower4.Draw();
+  lightTower5.Draw();
+  lightTower6.Draw();
 }

@@ -18,7 +18,7 @@ class Interface {
     Interface (int w = 1280, int h = 720) : mWindowSize(w, h), mHome(w, h/2),
       mListOfEnemies(), mListOfTowers(), 
       mDrawingClass(new DrawingClass(w, h, this)) { 
-        mFramesBetweenWaves = 6*ConstFps;
+        mFramesBetweenWaves = 15*ConstFps;
         mFramesBetweenEnemies = ConstFps;
         mWaveTimer = mFramesBetweenWaves;
         mEnemyTimer = 0;
