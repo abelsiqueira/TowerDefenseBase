@@ -12,17 +12,19 @@ typedef std::list <Enemy*> Wave;
 typedef unsigned int uint;
 
 const uint ConstFps = 180;
-const float ConstTileSize = 30.0;
 
 class Interface {
   public:
-    Interface (int w = 640, int h = 480) : mWindowSize(w, h), mHome(w, h/2),
+    Interface (int w = 1280, int h = 720) : mWindowSize(w, h), mHome(w, h/2),
       mListOfEnemies(), mListOfTowers(), 
       mDrawingClass(new DrawingClass(w, h, this)) { 
         mFramesBetweenWaves = 6*ConstFps;
         mFramesBetweenEnemies = ConstFps;
         mWaveTimer = mFramesBetweenWaves;
         mEnemyTimer = 0;
+        mTileSize = h/20.0;
+        mMapSize.x = w - 5*mTileSize;
+        mMapSize.y = h;
     }
     ~Interface ();
 
@@ -53,11 +55,13 @@ class Interface {
       Vector2f aux(x,y);
       mPath.push_back(aux);
     }
+    float GetTileSize () { return mTileSize; }
   private:
-    Vector2i mWindowSize;
+    Vector2i mWindowSize, mMapSize;
     Vector2f mHome;
     int mFramesBetweenWaves, mFramesBetweenEnemies;
     int mWaveTimer, mEnemyTimer;
+    float mTileSize;
 
     std::list <Enemy*>      mListOfEnemies;
     std::list <Tower*>      mListOfTowers;

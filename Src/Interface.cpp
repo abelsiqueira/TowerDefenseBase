@@ -100,15 +100,16 @@ void Interface::Update () {
 
 void Interface::Draw () {
   //Grid draw
-  int numLines = mWindowSize.x/ConstTileSize;
-  int numColumns = mWindowSize.y/ConstTileSize;
+  int numLines = mMapSize.x/mTileSize;
+  int numColumns = mMapSize.y/mTileSize;
   Vector3i color(30, 30, 30);
 
+  mDrawingClass->DrawFilledRectangle(0, 0, mMapSize.x, mMapSize.y, 5, 5, 5);
   for (int i = 1; i <= numLines; i++) {
-    mDrawingClass->DrawLine(i*ConstTileSize, 0, i*ConstTileSize, mWindowSize.y, color, 1);
+    mDrawingClass->DrawLine(i*mTileSize, 0, i*mTileSize, mMapSize.y, color, 1);
   }
   for (int j = 1; j <= numColumns; j++) {
-    mDrawingClass->DrawLine(0, j*ConstTileSize, mWindowSize.x, j*ConstTileSize, color, 1);
+    mDrawingClass->DrawLine(0, j*mTileSize, mMapSize.x, j*mTileSize, color, 1);
   }
 
   std::list <Vector2f>::const_iterator iter = mPath.begin(), tmp,
@@ -118,7 +119,7 @@ void Interface::Draw () {
     iter++;
     if (iter == iterEnd)
       break;
-    mDrawingClass->DrawLine(*tmp, *iter, 139, 69, 19, 1.5*ConstTileSize);
+    mDrawingClass->DrawLine(*tmp, *iter, 139, 69, 19, 1.5*mTileSize);
   }
 
   EnemyIterator p = mListOfEnemies.begin(),
@@ -137,6 +138,7 @@ void Interface::Draw () {
     (*r)->Draw();
     r++;
   }
+
   DrawHud();
 }
 
@@ -213,10 +215,10 @@ void Interface::CreateEnemy (EnemyType et) {
 }
 
 void Interface::CreateTower (TowerType tt, float x, float y) {
-  x = static_cast<int>(x/ConstTileSize)*ConstTileSize;
-  y = static_cast<int>(y/ConstTileSize)*ConstTileSize;
-  x += ConstTileSize/2;
-  y += ConstTileSize/2;
+  x = static_cast<int>(x/mTileSize)*mTileSize;
+  y = static_cast<int>(y/mTileSize)*mTileSize;
+  x += mTileSize/2;
+  y += mTileSize/2;
   switch(tt) {
     case TT_LightTower:
       LightTower *aux = new LightTower(x, y);
@@ -320,4 +322,9 @@ void Interface::DrawHud () {
     mDrawingClass->Write(10, 10, aux.str(), 255, 255, 255, FA_left);
 
   }
+
+  float border = 8;
+  mDrawingClass->DrawFilledRectangle(mMapSize.x, 0, mWindowSize.x, mMapSize.y, 0, 150, 0);
+  mDrawingClass->DrawFilledRectangle(mMapSize.x + border, border, 
+      mWindowSize.x - border, mMapSize.y - border, 140, 150, 150);
 }
