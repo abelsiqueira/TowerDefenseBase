@@ -16,8 +16,7 @@ const uint ConstFps = 180;
 class Interface {
   public:
     Interface (int w = 1280, int h = 720) : mWindowSize(w, h), mHome(w, h/2),
-      mListOfEnemies(), mListOfTowers(), 
-      mDrawingClass(new DrawingClass(w, h, this)) { 
+      mListOfEnemies(), mListOfTowers() {
         mFramesBetweenWaves = 15*ConstFps;
         mFramesBetweenEnemies = ConstFps;
         mWaveTimer = mFramesBetweenWaves;
@@ -25,6 +24,7 @@ class Interface {
         mTileSize = h/20.0;
         mMapSize.x = w - 5*mTileSize;
         mMapSize.y = h;
+        mDrawingClass = new DrawingClass(w, h, this);
     }
     ~Interface ();
 

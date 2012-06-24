@@ -22,11 +22,16 @@ DrawingClass::DrawingClass (int w, int h, Interface *interface) {
   al_register_event_source(mEventQueue, al_get_mouse_event_source());
   al_register_event_source(mEventQueue, al_get_keyboard_event_source());
 
-  mFont = al_load_font("DejaVuSans.ttf", 16, 0);
+  float tileSize = interface->GetTileSize();
+  mBigFont = al_load_font("DejaVuSans.ttf", tileSize, 0);
+  mFont = al_load_font("DejaVuSans.ttf", tileSize/2, 0);
+  mSmallFont = al_load_font("DejaVuSans.ttf", tileSize/4, 0);
 }
 
 DrawingClass::~DrawingClass () {
+  al_destroy_font(mBigFont);
   al_destroy_font(mFont);
+  al_destroy_font(mSmallFont);
   al_destroy_timer(mTimer);
   al_destroy_event_queue(mEventQueue);
   al_destroy_display(mDisplay);
@@ -65,6 +70,39 @@ void DrawingClass::Run () {
 
       al_flip_display();
     }
+  }
+}
+
+
+void DrawingClass::BigWrite (float x0, float y0, std::string str, int r, int g, int b,
+    FontAlignment fa) {
+  ALLEGRO_COLOR color = al_map_rgb(r, g, b);
+  switch (fa) {
+    case FA_left:
+      al_draw_text(mBigFont, color, x0, y0, ALLEGRO_ALIGN_LEFT, str.c_str());
+      break;
+    case FA_center:
+      al_draw_text(mBigFont, color, x0, y0, ALLEGRO_ALIGN_CENTRE, str.c_str());
+      break;
+    case FA_right:
+      al_draw_text(mBigFont, color, x0, y0, ALLEGRO_ALIGN_RIGHT, str.c_str());
+      break;
+  }
+}
+
+void DrawingClass::SmallWrite (float x0, float y0, std::string str, int r, int g, int b,
+    FontAlignment fa) {
+  ALLEGRO_COLOR color = al_map_rgb(r, g, b);
+  switch (fa) {
+    case FA_left:
+      al_draw_text(mSmallFont, color, x0, y0, ALLEGRO_ALIGN_LEFT, str.c_str());
+      break;
+    case FA_center:
+      al_draw_text(mSmallFont, color, x0, y0, ALLEGRO_ALIGN_CENTRE, str.c_str());
+      break;
+    case FA_right:
+      al_draw_text(mSmallFont, color, x0, y0, ALLEGRO_ALIGN_RIGHT, str.c_str());
+      break;
   }
 }
 
@@ -112,4 +150,40 @@ void DrawingClass::DrawFilledCircle (float cx, float cy, float radius, int r,
     int g, int b) {
   ALLEGRO_COLOR color = al_map_rgb(r, g, b);
   al_draw_filled_circle(cx, cy, radius, color);
+}
+
+void DrawingClass::DrawTriangle (float x0, float y0, float x1, float y1,
+    float x2, float y2, int r, int g, int b, float thick) {
+  ALLEGRO_COLOR color = al_map_rgb(r, g, b);
+  al_draw_triangle(x0, y0, x1, y1, x2, y2, color, thick);
+}
+
+void DrawingClass::DrawFilledTriangle (float x0, float y0, float x1, float y1,
+    float x2, float y2, int r, int g, int b) {
+  ALLEGRO_COLOR color = al_map_rgb(r, g, b);
+  al_draw_filled_triangle(x0, y0, x1, y1, x2, y2, color);
+}
+
+void DrawingClass::DrawRoundedRectangle (float x0, float y0, float x1,
+    float y1, float rx, float ry, int r, int g, int b, float thick) {
+  ALLEGRO_COLOR color = al_map_rgb(r, g, b);
+  al_draw_rounded_rectangle(x0, y0, x1, y1, rx, ry, color, thick);
+}
+
+void DrawingClass::DrawFilledRoundedRectangle (float x0, float y0, float x1,
+    float y1, float rx, float ry, int r, int g, int b) {
+  ALLEGRO_COLOR color = al_map_rgb(r, g, b);
+  al_draw_filled_rounded_rectangle(x0, y0, x1, y1, rx, ry, color);
+}
+
+void DrawingClass::DrawEllipse (float x0, float y0, float rx, float ry,
+    int r, int g, int b, float thick) {
+  ALLEGRO_COLOR color = al_map_rgb(r, g, b);
+  al_draw_ellipse(x0, y0, rx, ry, color, thick);
+}
+
+void DrawingClass::DrawFilledEllipse (float x0, float y0, float rx, float ry,
+    int r, int g, int b) {
+  ALLEGRO_COLOR color = al_map_rgb(r, g, b);
+  al_draw_filled_ellipse(x0, y0, rx, ry, color);
 }

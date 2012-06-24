@@ -310,10 +310,10 @@ bool Interface::ProjectileHitsEnemy (Projectile *projectile) {
 }
 
 void Interface::DrawHud () {
-  float border = 8;
-  mDrawingClass->DrawFilledRectangle(mMapSize.x, 0, mWindowSize.x, mMapSize.y, 0, 150, 0);
-  mDrawingClass->DrawFilledRectangle(mMapSize.x + border, border, 
-      mWindowSize.x - border, mMapSize.y - border, 140, 150, 150);
+  float border = mTileSize/8;
+  mDrawingClass->DrawFilledRectangle(mMapSize.x, 0, mWindowSize.x, mMapSize.y, 250, 0, 0);
+  mDrawingClass->DrawFilledRoundedRectangle(mMapSize.x + border, border, 
+      mWindowSize.x - border, mMapSize.y - border, 10, 10, 10, 0, 0);
 
   if (!mWaves.empty()) {
     float timeUntilNextWave = mFramesBetweenWaves - mWaveTimer;
@@ -326,12 +326,12 @@ void Interface::DrawHud () {
     aux << timeUntilNextWave;
 
     float x = mMapSize.x + (mWindowSize.x - mMapSize.x)/2;
-    mDrawingClass->Write(x, 10, aux.str(), 
+    mDrawingClass->Write(x, mTileSize, aux.str(), 
         255, 255, 255, FA_center);
 
   }
   float x = mMapSize.x + (mWindowSize.x - mMapSize.x)/2,
-        y = 100;
+        y = 3*mTileSize;
   float dif = mTileSize*1.5;
   LightTower lightTower1(this, x - dif, y);
   LightTower lightTower2(this, x      , y);
@@ -339,10 +339,17 @@ void Interface::DrawHud () {
   LightTower lightTower4(this, x - dif, y + dif);
   LightTower lightTower5(this, x      , y + dif);
   LightTower lightTower6(this, x + dif, y + dif);
+  Vector3i color(0, 0, 0);
   lightTower1.Draw();
+  mDrawingClass->SmallWrite(lightTower1.GetPosition(), "1", color, FA_center);
   lightTower2.Draw();
+  mDrawingClass->SmallWrite(lightTower2.GetPosition(), "2", color, FA_center);
   lightTower3.Draw();
+  mDrawingClass->SmallWrite(lightTower3.GetPosition(), "3", color, FA_center);
   lightTower4.Draw();
+  mDrawingClass->SmallWrite(lightTower4.GetPosition(), "4", color, FA_center);
   lightTower5.Draw();
+  mDrawingClass->SmallWrite(lightTower5.GetPosition(), "5", color, FA_center);
   lightTower6.Draw();
+  mDrawingClass->SmallWrite(lightTower6.GetPosition(), "6", color, FA_center);
 }
