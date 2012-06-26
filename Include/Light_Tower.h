@@ -6,7 +6,7 @@
 const float ConstLightTowerRange  = 150.0;
 const float ConstLightTowerSpeed  =  50.0;
 const int   ConstLightTowerDamage =   2;
-const int   ConstLightTowerCost   =  30;
+const int   ConstLightTowerCost   =  60;
 
 class LightTower : public Tower {
   public:

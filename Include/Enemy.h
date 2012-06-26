@@ -26,6 +26,7 @@ class Enemy : public Entity {
         std::list<Vector2f>::iterator end) {
       mPath.assign(begin, end);
     }
+    int GetReward () const { return mReward; }
   protected:
     float mSpeed;
     int mDamage, mHealth, mMaxHealth, mReward;

@@ -272,6 +272,7 @@ void Interface::KillEnemy (Enemy *enemy) {
   EnemyIterator iter = mListOfEnemies.begin(),
                      iterEnd = mListOfEnemies.end();
 
+  mGold += enemy->GetReward();
   while (iter != iterEnd) {
     if (enemy == *iter) {
       mGarbageCollector.push_back(*iter);
@@ -362,6 +363,14 @@ void Interface::DrawHud () {
   mDrawingClass->SmallWrite(lightTower5.GetPosition(), "5", color, FA_center);
   lightTower6.Draw();
   mDrawingClass->SmallWrite(lightTower6.GetPosition(), "6", color, FA_center);
+
+  std::stringstream aux;
+  aux << "Gold: ";
+  aux.fill('0');
+  aux.width(3);
+  aux << mGold;
+  y += 4*dif;
+  mDrawingClass->Write(x, y, aux.str(), 255, 255, 255, FA_center);
 }
 
 void Interface::Keyboard (KeyCode kc) {
@@ -378,10 +387,13 @@ void Interface::Keyboard (KeyCode kc) {
 }
 
 void Interface::InsertTower (KeyCode kc) {
-  mInsertingTower = true;
   switch (kc) {
     case Key1:
       mNextTower = 1;
+      if (mGold < ConstLightTowerCost)
+        mNextTower = 0;
+      else 
+        mInsertingTower = true;
       break;
     default:
       mNextTower = 0;
@@ -396,6 +408,7 @@ void Interface::Mouse (MouseCode mc) {
   switch (mNextTower) {
     case 1:
       CreateTower (TT_LightTower, position.x, position.y);
+      mGold -= ConstLightTowerCost;
       mInsertingTower = false;
       break;
     default:
