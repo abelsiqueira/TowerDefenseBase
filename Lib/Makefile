@@ -20,6 +20,6 @@ all: $(OBJS)
 %.o: ../Src/%.cpp
 	$(CXX) -c -o $@ $< $(I) $(GRAPHIC_LIB) $(CXXFLAGS)
 
-clear:
+clean:
 	rm -f test
 	rm -f *.o
