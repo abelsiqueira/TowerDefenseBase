@@ -2,6 +2,48 @@
 #include "Interface.h"
 #include <map>
 
+std::map <int,KeyCode> KeyMap;
+
+void CreateMap () {
+  KeyMap[ALLEGRO_KEY_A] = KeyA;
+  KeyMap[ALLEGRO_KEY_B] = KeyB;
+  KeyMap[ALLEGRO_KEY_C] = KeyC;
+  KeyMap[ALLEGRO_KEY_D] = KeyD;
+  KeyMap[ALLEGRO_KEY_E] = KeyE;
+  KeyMap[ALLEGRO_KEY_F] = KeyF;
+  KeyMap[ALLEGRO_KEY_G] = KeyG;
+  KeyMap[ALLEGRO_KEY_H] = KeyH;
+  KeyMap[ALLEGRO_KEY_I] = KeyI;
+  KeyMap[ALLEGRO_KEY_J] = KeyJ;
+  KeyMap[ALLEGRO_KEY_K] = KeyK;
+  KeyMap[ALLEGRO_KEY_L] = KeyL;
+  KeyMap[ALLEGRO_KEY_M] = KeyM;
+  KeyMap[ALLEGRO_KEY_N] = KeyN;
+  KeyMap[ALLEGRO_KEY_O] = KeyO;
+  KeyMap[ALLEGRO_KEY_P] = KeyP;
+  KeyMap[ALLEGRO_KEY_Q] = KeyQ;
+  KeyMap[ALLEGRO_KEY_R] = KeyR;
+  KeyMap[ALLEGRO_KEY_S] = KeyS;
+  KeyMap[ALLEGRO_KEY_T] = KeyT;
+  KeyMap[ALLEGRO_KEY_U] = KeyU;
+  KeyMap[ALLEGRO_KEY_V] = KeyV;
+  KeyMap[ALLEGRO_KEY_X] = KeyX;
+  KeyMap[ALLEGRO_KEY_W] = KeyW;
+  KeyMap[ALLEGRO_KEY_Y] = KeyY;
+  KeyMap[ALLEGRO_KEY_Z] = KeyZ;
+  KeyMap[ALLEGRO_KEY_0] = Key0;
+  KeyMap[ALLEGRO_KEY_1] = Key1;
+  KeyMap[ALLEGRO_KEY_2] = Key2;
+  KeyMap[ALLEGRO_KEY_3] = Key3;
+  KeyMap[ALLEGRO_KEY_4] = Key4;
+  KeyMap[ALLEGRO_KEY_5] = Key5;
+  KeyMap[ALLEGRO_KEY_6] = Key6;
+  KeyMap[ALLEGRO_KEY_7] = Key7;
+  KeyMap[ALLEGRO_KEY_8] = Key8;
+  KeyMap[ALLEGRO_KEY_9] = Key9;
+  KeyMap[ALLEGRO_KEY_ESCAPE] = KeyEscape;
+}
+
 DrawingClass::DrawingClass (int w, int h, Interface *interface) {
   al_init();
   mDisplay = al_create_display(w, h);
@@ -26,6 +68,8 @@ DrawingClass::DrawingClass (int w, int h, Interface *interface) {
   mBigFont = al_load_font("DejaVuSans.ttf", tileSize, 0);
   mFont = al_load_font("DejaVuSans.ttf", tileSize/2, 0);
   mSmallFont = al_load_font("DejaVuSans.ttf", tileSize/4, 0);
+
+  CreateMap();
 }
 
 DrawingClass::~DrawingClass () {
@@ -48,18 +92,16 @@ void DrawingClass::Run () {
     if (ev.type == ALLEGRO_EVENT_TIMER) {
       mInterface->Update();
       redraw = true;
-    } else if (ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE)
+    } else if (ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
       mDone = true;
-    else if (ev.type == ALLEGRO_EVENT_MOUSE_BUTTON_UP) {
+    } else if (ev.type == ALLEGRO_EVENT_MOUSE_AXES ||
+               ev.type == ALLEGRO_EVENT_MOUSE_ENTER_DISPLAY) {
+      mMousePosition.x = ev.mouse.x;
+      mMousePosition.y = ev.mouse.y;
+    } else if (ev.type == ALLEGRO_EVENT_MOUSE_BUTTON_UP) {
+      mInterface->Mouse(MouseUp);
     } else if (ev.type == ALLEGRO_EVENT_KEY_DOWN) {
-      switch (ev.keyboard.keycode) {
-        case ALLEGRO_KEY_ESCAPE:
-        case ALLEGRO_KEY_Q:
-          mDone = true;
-          break;
-        default:
-          break;
-      }
+      mInterface->Keyboard(KeyMap[ev.keyboard.keycode]);
     }
 
     if (redraw && al_is_event_queue_empty(mEventQueue)) {

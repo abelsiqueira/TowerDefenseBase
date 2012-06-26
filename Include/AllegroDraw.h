@@ -20,6 +20,8 @@ class DrawingClass {
 
     void Run ();
 
+    Vector2f GetMousePosition () { return mMousePosition; }
+
     // Primitives
     void BigWrite (float x0, float y0, std::string str, int r, int g, int b,
         FontAlignment fa = FA_left);
@@ -210,6 +212,7 @@ class DrawingClass {
     void Done () { mDone = true; }
   private:
     bool mDone;
+    Vector2f mMousePosition;
 
     ALLEGRO_DISPLAY *mDisplay;
     ALLEGRO_EVENT_QUEUE *mEventQueue;

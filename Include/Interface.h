@@ -25,12 +25,17 @@ class Interface {
         mMapSize.x = w - 5*mTileSize;
         mMapSize.y = h;
         mDrawingClass = new DrawingClass(w, h, this);
+        mInsertingTower = false;
+        mNextTower = 0;
     }
     ~Interface ();
 
     void Update ();
     void Draw ();
+    void Keyboard (KeyCode);
+    void Mouse (MouseCode);
     void Run ();
+    void InsertTower (KeyCode);
 
     DrawingClass *Drawing () { return mDrawingClass; }
 
@@ -62,6 +67,8 @@ class Interface {
     int mFramesBetweenWaves, mFramesBetweenEnemies;
     int mWaveTimer, mEnemyTimer;
     float mTileSize;
+    bool mInsertingTower;
+    int mNextTower;
 
     std::list <Enemy*>      mListOfEnemies;
     std::list <Tower*>      mListOfTowers;

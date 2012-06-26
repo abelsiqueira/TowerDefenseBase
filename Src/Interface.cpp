@@ -139,6 +139,16 @@ void Interface::Draw () {
     r++;
   }
 
+  if (mInsertingTower) {
+    Vector2f position = mDrawingClass->GetMousePosition();
+    position.x = static_cast<int>(position.x/mTileSize)*mTileSize;
+    position.y = static_cast<int>(position.y/mTileSize)*mTileSize;
+    position.x += mTileSize/2;
+    position.y += mTileSize/2;
+    Vector3i color (255, 255, 255);
+    mDrawingClass->DrawCircle(position, mTileSize/2, color, 1);
+  }
+
   DrawHud();
 }
 
@@ -352,4 +362,43 @@ void Interface::DrawHud () {
   mDrawingClass->SmallWrite(lightTower5.GetPosition(), "5", color, FA_center);
   lightTower6.Draw();
   mDrawingClass->SmallWrite(lightTower6.GetPosition(), "6", color, FA_center);
+}
+
+void Interface::Keyboard (KeyCode kc) {
+  switch (kc) {
+    case KeyQ:
+    case KeyEscape:
+      mDrawingClass->Done();
+      break;
+    case Key1:
+      InsertTower(kc);
+    default:
+      break;
+  }
+}
+
+void Interface::InsertTower (KeyCode kc) {
+  mInsertingTower = true;
+  switch (kc) {
+    case Key1:
+      mNextTower = 1;
+      break;
+    default:
+      mNextTower = 0;
+      break;
+  }
+}
+
+void Interface::Mouse (MouseCode mc) {
+  if (!mInsertingTower)
+    return;
+  Vector2f position = mDrawingClass->GetMousePosition();
+  switch (mNextTower) {
+    case 1:
+      CreateTower (TT_LightTower, position.x, position.y);
+      mInsertingTower = false;
+      break;
+    default:
+      break;
+  }
 }
