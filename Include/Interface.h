@@ -12,6 +12,7 @@ typedef std::list <Enemy*> Wave;
 typedef unsigned int uint;
 
 const uint ConstFps = 180;
+const int ConstStartingGold = 100;
 
 class Interface {
   public:
@@ -27,6 +28,7 @@ class Interface {
         mDrawingClass = new DrawingClass(w, h, this);
         mInsertingTower = false;
         mNextTower = 0;
+        mGold = ConstStartingGold;
     }
     ~Interface ();
 
@@ -69,6 +71,7 @@ class Interface {
     float mTileSize;
     bool mInsertingTower;
     int mNextTower;
+    int mGold;
 
     std::list <Enemy*>      mListOfEnemies;
     std::list <Tower*>      mListOfTowers;
