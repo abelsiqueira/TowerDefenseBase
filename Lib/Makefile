@@ -10,7 +10,7 @@ INTERFACE = Interface.o
 
 GRAPHICOBJ = AllegroDraw.o
 GRAPHIC_LIB = -lallegro_ttf -lallegro_font -lallegro_primitives -lallegro \
-							-D'GraphicLibrary=ALLEGRO'
+							-lallegro_audio -lallegro_acodec -D'GraphicLibrary=ALLEGRO'
 
 OBJS = $(TOWERS) $(ENEMIES) $(PROJECTILES) $(GRAPHICOBJ) $(INTERFACE)
 

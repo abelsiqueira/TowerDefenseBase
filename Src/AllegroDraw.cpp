@@ -58,6 +58,9 @@ DrawingClass::DrawingClass (int w, int h, Interface *interface) {
   al_init_primitives_addon();
   al_install_mouse();
   al_install_keyboard();
+  assert(al_install_audio());
+  assert(al_init_acodec_addon());
+  assert(al_reserve_samples(1));
 
   al_register_event_source(mEventQueue, al_get_display_event_source(mDisplay));
   al_register_event_source(mEventQueue, al_get_timer_event_source(mTimer));
@@ -68,6 +71,9 @@ DrawingClass::DrawingClass (int w, int h, Interface *interface) {
   mBigFont = al_load_font("DejaVuSans.ttf", tileSize, 0);
   mFont = al_load_font("DejaVuSans.ttf", tileSize/2, 0);
   mSmallFont = al_load_font("DejaVuSans.ttf", tileSize/4, 0);
+  mMusic = al_load_sample("Audio/Samples/bu-the-green-wizards.it");
+  if (!mMusic)
+    throw("");
 
   CreateMap();
 }

@@ -7,6 +7,8 @@ typedef void (*pVoidFVoid) (void);
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_ttf.h>
 #include <allegro5/allegro_font.h>
+#include <allegro5/allegro_audio.h>
+#include <allegro5/allegro_acodec.h>
 #include <string>
 #include "Vectors.h"
 #include "Definitions.h"
@@ -220,6 +222,8 @@ class DrawingClass {
     ALLEGRO_FONT *mBigFont;
     ALLEGRO_FONT *mFont;
     ALLEGRO_FONT *mSmallFont;
+
+    ALLEGRO_SAMPLE *mMusic;
 
     Interface *mInterface;
 };
