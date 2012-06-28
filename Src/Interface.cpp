@@ -451,12 +451,6 @@ void Interface::ReadLevel (char *level) {
       hasPath = true;
     }
   }
-  for (size_t i = 0; i < ConstVerticalTiles; i++) {
-    for (size_t j = 0; j < ConstHorizontalTiles; j++) {
-      std::cout << mGrid[j + i*ConstHorizontalTiles];
-    }
-    std::cout << std::endl;
-  }
 
   mSpawn.x = (startX + 0.5)*mTileSize;
   mSpawn.y = (startY + 0.5)*mTileSize;
@@ -509,11 +503,4 @@ void Interface::ReadLevel (char *level) {
   mHome.x = (startX + 0.5)*mTileSize;
   mHome.y = (startY + 0.5)*mTileSize;
 
-  std::cout << std::endl;
-  for (size_t i = 0; i < ConstVerticalTiles; i++) {
-    for (size_t j = 0; j < ConstHorizontalTiles; j++) {
-      std::cout << mGrid[j + i*ConstHorizontalTiles];
-    }
-    std::cout << std::endl;
-  }
 }

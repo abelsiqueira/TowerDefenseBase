@@ -13,6 +13,24 @@ from
 
 www.allegro.cc/files/
 
++ Installing allegro
+
+Download and unpack Allegro (in this case 5.0.7) and cd to the folder.
+Now enter
+
+$ mkdir Build
+$ cd Build
+$ cmake ..
+
+After succesfully completed, enter
+
+$ make -j<n>
+
+where n is the amount of parallel jobs you want (a simple make will 
+work too). After that, just
+
+# make install
+
 You must add the path to the library and the header to the compiler. 
 You can do that with the following lines in your .bashrc
 
