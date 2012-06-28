@@ -7,7 +7,7 @@ int main () {
   srand(time(0));
   Interface interface;
 
-  interface.ReadLevel("Maps/level1");
+  interface.ReadLevel("Maps/level2");
 
   interface.CreateEnemy(1, ET_Skeleton);
   interface.CreateEnemy(1, ET_Skeleton);

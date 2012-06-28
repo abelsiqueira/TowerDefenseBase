@@ -117,15 +117,24 @@ void Interface::Draw () {
   //Grid lines
 
   //Draw path
-  std::list <Vector2f>::const_iterator iter = mPath.begin(), tmp,
-    iterEnd = mPath.end();
-  while (iter != iterEnd) {
-    tmp = iter;
-    iter++;
-    if (iter == iterEnd)
-      break;
-    mDrawingClass->DrawLine(*tmp, *iter, 139, 69, 19, 1.0*mTileSize);
+  for (size_t k = 0; k < ConstHorizontalTiles*ConstVerticalTiles; k++) {
+    char aux = mGrid[k];
+    if (aux == 'o') {
+      size_t i = k%ConstHorizontalTiles, j = k/ConstHorizontalTiles;
+      mDrawingClass->DrawFilledRectangle(i*mTileSize, j*mTileSize, (i+1)*mTileSize,
+          (j+1)*mTileSize, 139, 69, 19);
+    }
   }
+/*   std::list <Vector2f>::const_iterator iter = mPath.begin(), tmp,
+ *     iterEnd = mPath.end();
+ *   while (iter != iterEnd) {
+ *     tmp = iter;
+ *     iter++;
+ *     if (iter == iterEnd)
+ *       break;
+ *     mDrawingClass->DrawLine(*tmp, *iter, 139, 69, 19, 1.0*mTileSize);
+ *   }
+ */
   //Draw path
 
   EnemyIterator p = mListOfEnemies.begin(),
@@ -154,6 +163,11 @@ void Interface::Draw () {
     Vector3i color (255, 255, 255);
     mDrawingClass->DrawCircle(position, mTileSize/2, color, 1);
   }
+
+  mDrawingClass->DrawFilledRoundedRectangle(mSpawn.x - mTileSize, mSpawn.y - mTileSize,
+      mSpawn.x + mTileSize, mSpawn.y + mTileSize, 10, 10, 50, 200, 50);
+  mDrawingClass->DrawFilledRoundedRectangle(mHome.x - mTileSize, mHome.y - mTileSize,
+      mHome.x + mTileSize, mHome.y + mTileSize, 10, 10, 150, 100, 50);
 
   DrawHud();
 }
@@ -444,8 +458,11 @@ void Interface::ReadLevel (char *level) {
     std::cout << std::endl;
   }
 
+  mSpawn.x = (startX + 0.5)*mTileSize;
+  mSpawn.y = (startY + 0.5)*mTileSize;
+
   while (hasPath) {
-    AddToPath(startX*mTileSize, startY*mTileSize);
+    AddToPath((startX+0.5)*mTileSize, (startY+0.5)*mTileSize);
     mGrid[startX + startY*ConstHorizontalTiles] = 'o';
     hasPath = false;
     char aux;
@@ -488,6 +505,9 @@ void Interface::ReadLevel (char *level) {
       }
     }
   }
+
+  mHome.x = (startX + 0.5)*mTileSize;
+  mHome.y = (startY + 0.5)*mTileSize;
 
   std::cout << std::endl;
   for (size_t i = 0; i < ConstVerticalTiles; i++) {

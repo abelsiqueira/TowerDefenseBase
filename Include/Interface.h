@@ -18,7 +18,7 @@ const size_t ConstVerticalTiles = 20;
 
 class Interface {
   public:
-    Interface (int w = 1280, int h = 720) : mWindowSize(w, h), mHome(w, h/2),
+    Interface (int w = 1280, int h = 720) : mWindowSize(w, h),
       mListOfEnemies(), mListOfTowers() {
         mFramesBetweenWaves = 15*ConstFps;
         mFramesBetweenEnemies = ConstFps;
@@ -69,7 +69,7 @@ class Interface {
     float GetTileSize () { return mTileSize; }
   private:
     Vector2i mWindowSize, mMapSize;
-    Vector2f mHome;
+    Vector2f mHome, mSpawn;
     int mFramesBetweenWaves, mFramesBetweenEnemies;
     int mWaveTimer, mEnemyTimer;
     float mTileSize;
