@@ -7,12 +7,7 @@ int main () {
   srand(time(0));
   Interface interface;
 
-  interface.AddToPath(0, 400);
-  interface.AddToPath(400, 400);
-  interface.AddToPath(400, 200);
-  interface.AddToPath(600, 200);
-  interface.AddToPath(600, 400);
-  interface.AddToPath(1000, 400);
+  interface.ReadLevel("Maps/level1");
 
   interface.CreateEnemy(1, ET_Skeleton);
   interface.CreateEnemy(1, ET_Skeleton);

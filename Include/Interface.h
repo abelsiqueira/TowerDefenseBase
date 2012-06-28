@@ -13,6 +13,8 @@ typedef unsigned int uint;
 
 const uint ConstFps = 180;
 const int ConstStartingGold = 100;
+const size_t ConstHorizontalTiles = 30;
+const size_t ConstVerticalTiles = 20;
 
 class Interface {
   public:
@@ -22,13 +24,14 @@ class Interface {
         mFramesBetweenEnemies = ConstFps;
         mWaveTimer = mFramesBetweenWaves;
         mEnemyTimer = 0;
-        mTileSize = h/20.0;
-        mMapSize.x = w - 5*mTileSize;
+        mTileSize = h/ConstVerticalTiles;
+        mMapSize.x = mTileSize*ConstHorizontalTiles;
         mMapSize.y = h;
         mDrawingClass = new DrawingClass(w, h, this);
         mInsertingTower = false;
         mNextTower = 0;
         mGold = ConstStartingGold;
+        mGrid = 0;
     }
     ~Interface ();
 
@@ -38,6 +41,7 @@ class Interface {
     void Mouse (MouseCode);
     void Run ();
     void InsertTower (KeyCode);
+    void ReadLevel (char *str);
 
     DrawingClass *Drawing () { return mDrawingClass; }
 
@@ -72,6 +76,7 @@ class Interface {
     bool mInsertingTower;
     int mNextTower;
     int mGold;
+    char *mGrid;
 
     std::list <Enemy*>      mListOfEnemies;
     std::list <Tower*>      mListOfTowers;

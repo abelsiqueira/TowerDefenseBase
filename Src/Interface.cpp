@@ -1,5 +1,7 @@
 #include "Interface.h"
+#include <iostream>
 #include <sstream>
+#include <fstream>
 
 typedef std::list <Enemy*>::iterator EnemyIterator;
 typedef std::list <Tower*>::iterator TowerIterator;
@@ -104,6 +106,7 @@ void Interface::Draw () {
   int numColumns = mMapSize.y/mTileSize;
   Vector3i color(30, 30, 30);
 
+  //Grid lines
   mDrawingClass->DrawFilledRectangle(0, 0, mMapSize.x, mMapSize.y, 5, 5, 5);
   for (int i = 1; i <= numLines; i++) {
     mDrawingClass->DrawLine(i*mTileSize, 0, i*mTileSize, mMapSize.y, color, 1);
@@ -111,7 +114,9 @@ void Interface::Draw () {
   for (int j = 1; j <= numColumns; j++) {
     mDrawingClass->DrawLine(0, j*mTileSize, mMapSize.x, j*mTileSize, color, 1);
   }
+  //Grid lines
 
+  //Draw path
   std::list <Vector2f>::const_iterator iter = mPath.begin(), tmp,
     iterEnd = mPath.end();
   while (iter != iterEnd) {
@@ -119,8 +124,9 @@ void Interface::Draw () {
     iter++;
     if (iter == iterEnd)
       break;
-    mDrawingClass->DrawLine(*tmp, *iter, 139, 69, 19, 1.5*mTileSize);
+    mDrawingClass->DrawLine(*tmp, *iter, 139, 69, 19, 1.0*mTileSize);
   }
+  //Draw path
 
   EnemyIterator p = mListOfEnemies.begin(),
     pEnd = mListOfEnemies.end();
@@ -413,5 +419,81 @@ void Interface::Mouse (MouseCode mc) {
       break;
     default:
       break;
+  }
+}
+
+void Interface::ReadLevel (char *level) {
+  std::ifstream file(level);
+  size_t N = ConstHorizontalTiles*ConstVerticalTiles;
+  int startX = ConstHorizontalTiles, startY = ConstVerticalTiles;
+  bool hasPath = false;
+
+  mGrid = new char[N];
+  for (size_t k = 0; k < N; k++) {
+    file >> mGrid[k];
+    if (mGrid[k] == 'S') {
+      startX = k%ConstHorizontalTiles;
+      startY = k/ConstHorizontalTiles;
+      hasPath = true;
+    }
+  }
+  for (size_t i = 0; i < ConstVerticalTiles; i++) {
+    for (size_t j = 0; j < ConstHorizontalTiles; j++) {
+      std::cout << mGrid[j + i*ConstHorizontalTiles];
+    }
+    std::cout << std::endl;
+  }
+
+  while (hasPath) {
+    AddToPath(startX*mTileSize, startY*mTileSize);
+    mGrid[startX + startY*ConstHorizontalTiles] = 'o';
+    hasPath = false;
+    char aux;
+    int i = startX - 1, j = startY;
+
+    aux = mGrid[i + j*ConstHorizontalTiles];
+    if ( (aux == 'x') || (aux == 'E') ) {
+      startX = i;
+      startY = j;
+      hasPath = true;
+    }
+    i = startX + 1, j = startY;
+
+    if (!hasPath) {
+      aux = mGrid[i + j*ConstHorizontalTiles];
+      if ( (aux == 'x') || (aux == 'E') ) {
+        startX = i;
+        startY = j;
+        hasPath = true;
+      }
+      i = startX, j = startY + 1;
+    }
+
+    if (!hasPath) {
+      aux = mGrid[i + j*ConstHorizontalTiles];
+      if ( (aux == 'x') || (aux == 'E') ) {
+        startX = i;
+        startY = j;
+        hasPath = true;
+      }
+      i = startX, j = startY - 1;
+    }
+
+    if (!hasPath) {
+      aux = mGrid[i + j*ConstHorizontalTiles];
+      if ( (aux == 'x') || (aux == 'E') ) {
+        startX = i;
+        startY = j;
+        hasPath = true;
+      }
+    }
+  }
+
+  std::cout << std::endl;
+  for (size_t i = 0; i < ConstVerticalTiles; i++) {
+    for (size_t j = 0; j < ConstHorizontalTiles; j++) {
+      std::cout << mGrid[j + i*ConstHorizontalTiles];
+    }
+    std::cout << std::endl;
   }
 }
