@@ -13,50 +13,50 @@ from
 
 www.allegro.cc/files/
 
-+ Installing allegro
+### Installing allegro
 
 Download and unpack Allegro (in this case 5.0.7) and cd to the folder.
 Now enter
 
-$ mkdir Build
-$ cd Build
-$ cmake ..
+     $ mkdir Build
+     $ cd Build
+     $ cmake ..
 
 After succesfully completed, enter
 
-$ make -j<n>
+     $ make -j<n>
 
 where n is the amount of parallel jobs you want (a simple make will 
 work too). After that, just
 
-# make install
+     # make install
 
 You must add the path to the library and the header to the compiler. 
 You can do that with the following lines in your .bashrc
 
-export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/local/lib"
-export CPLUS_INCLUDE_PATH="$CPLUS_INCLUDE_PATH:/usr/local/include/allegro5"
+     export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/local/lib"
+     export CPLUS_INCLUDE_PATH="$CPLUS_INCLUDE_PATH:/usr/local/include/allegro5"
 
 Alternatively, you can add paths to these places in Lib/Makefile.
 
 You will also need the Vectors library I made, that can be
 downloaded with
 
-git clone https://github.com/abelsiqueira/Vectors.git
+     git clone https://github.com/abelsiqueira/Vectors.git
 
 After downloading, adjust the path to Vectors in Lib/Makefile
 
 Now, enter
 
-$ make
+     $ make
 
 If you change something, you may have to clean before you can remake. You can do a 
 
-$ make clean all
+     $ make clean all
 
 to remake completely.
 
 After compiled, you can run the project with
 
-$ Lib/test
+     $ Lib/test
 
