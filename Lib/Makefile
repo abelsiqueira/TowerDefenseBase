@@ -1,5 +1,5 @@
 CXX = g++
-CXXFLAGS = -Wall -Wextra -ggdb
+CXXFLAGS = -Wall -Wextra -ggdb 
 ROOTDIR = ..
 I = -I$(ROOTDIR)/Include -I$(ROOTDIR)/../Vectors/Include
 
