@@ -223,7 +223,7 @@ class DrawingClass {
     ALLEGRO_FONT *mFont;
     ALLEGRO_FONT *mSmallFont;
 
-    ALLEGRO_SAMPLE *mMusic;
+    ALLEGRO_AUDIO_STREAM *mMusic;
 
     Interface *mInterface;
 };
