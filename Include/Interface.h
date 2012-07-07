@@ -49,6 +49,7 @@ class Interface {
         mNextTower = 0;
         mGold = ConstStartingGold;
         mGrid = 0;
+        inMenu = false;
     }
     ~Interface ();
 
@@ -94,6 +95,7 @@ class Interface {
     int mNextTower;
     int mGold;
     char *mGrid;
+    bool inMenu;
 
     std::list <Enemy*>      mListOfEnemies;
     std::list <Tower*>      mListOfTowers;
@@ -109,6 +111,7 @@ class Interface {
 
     void CleanTheGarbageCollector ();
     void DrawHud ();
+    void DrawMenu ();
 };
 
 #endif

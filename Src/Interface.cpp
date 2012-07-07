@@ -80,6 +80,8 @@ void Interface::CleanTheGarbageCollector () {
 }
 
 void Interface::Update () {
+  if (inMenu)
+    return;
   mWaveTimer++; mEnemyTimer++;
   if ( (mWaveTimer > mFramesBetweenWaves) && (!mWaves.empty()) ) {
     EnemyIterator begin = mWaves.front().begin(),
@@ -118,6 +120,7 @@ void Interface::Update () {
 }
 
 void Interface::Draw () {
+
   //Grid draw
   int numLines = mMapSize.x/mTileSize;
   int numColumns = mMapSize.y/mTileSize;
@@ -187,6 +190,9 @@ void Interface::Draw () {
       mHome.x + mTileSize, mHome.y + mTileSize, 10, 10, 150, 100, 50);
 
   DrawHud();
+  if (inMenu) {
+    DrawMenu();
+  }
 }
 
 void Interface::Run () {
@@ -418,6 +424,11 @@ void Interface::Keyboard (KeyCode kc) {
       break;
     case Key1:
       InsertTower(kc);
+      break;
+    case KeyP:
+      if (inMenu) inMenu = false;
+      else if (!inMenu) inMenu = true;
+      break;
     default:
       break;
   }
@@ -524,4 +535,11 @@ void Interface::ReadLevel (char *level) {
   mHome.x = (startX + 0.5)*mTileSize;
   mHome.y = (startY + 0.5)*mTileSize;
 
+}
+
+void Interface::DrawMenu () {
+  mDrawingClass->DrawFilledRectangle(0, 0, mWindowSize.x, mWindowSize.y,
+      50, 50, 50, 150);
+  mDrawingClass->BigWrite(mWindowSize.x/2, mWindowSize.y/10, "PAUSE",
+      255, 255, 255, FA_center);
 }

@@ -54,6 +54,8 @@ class DrawingClass {
         int b, int thick);
     void DrawFilledRectangle (float x0, float y0, float x1, float y1, int r, 
         int g, int b);
+    void DrawFilledRectangle (float x0, float y0, float x1, float y1, int r, 
+        int g, int b, int a);
     void DrawCircle (float cx, float cy, float radius, int r, int g, int b, int thick);
     void DrawFilledCircle (float cx, float cy, float radius, int r, int g, int b);
     void DrawTriangle (float x0, float y0, float x1, float y1, float x2, float y2,

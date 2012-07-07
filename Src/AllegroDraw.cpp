@@ -207,6 +207,12 @@ void DrawingClass::DrawFilledRectangle (float x0, float y0, float x1, float y1,
   al_draw_filled_rectangle(x0, y0, x1, y1, color);
 }
 
+void DrawingClass::DrawFilledRectangle (float x0, float y0, float x1, float y1, 
+    int r, int g, int b, int a) {
+  ALLEGRO_COLOR color = al_map_rgba(r, g, b, a);
+  al_draw_filled_rectangle(x0, y0, x1, y1, color);
+}
+
 void DrawingClass::DrawCircle (float cx, float cy, float radius, int r, int g,
     int b, int thick) {
   ALLEGRO_COLOR color = al_map_rgb(r, g, b);
