@@ -231,7 +231,7 @@ class DrawingClass {
       DrawFilledEllipse(c.x, c.y, rx, ry, color.x, color.y, color.z);
     }
 
-    void DrawBackground (float x, float y);
+    void DrawBackground ();
     void Done () { mDone = true; }
   private:
     bool mDone;

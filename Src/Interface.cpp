@@ -127,13 +127,14 @@ void Interface::Draw () {
   Vector3i color(30, 30, 30);
 
   //Draw background per tile
-  for (int i = 0; i < numLines; i++) {
-    for (int j = 0; j < numColumns; j++) {
-      float x = i*mTileSize, y = j*mTileSize;
-      mDrawingClass->DrawBackground(x, y);
-    }
-  }
+//  for (int i = 0; i < numLines; i++) {
+//    for (int j = 0; j < numColumns; j++) {
+//      float x = i*mTileSize, y = j*mTileSize;
+//      mDrawingClass->DrawBackground(x, y);
+//    }
+//  }
   //
+  mDrawingClass->DrawBackground();
 
   //Grid lines
 /*   for (int i = 1; i <= numLines; i++) {

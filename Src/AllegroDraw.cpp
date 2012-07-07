@@ -115,8 +115,14 @@ DrawingClass::~DrawingClass () {
   al_destroy_display(mDisplay);
 }
 
-void DrawingClass::DrawBackground(float x, float y) {
-  al_draw_bitmap(mBackground, x, y, 0);
+void DrawingClass::DrawBackground() {
+  int w = al_get_bitmap_width(mBackground),
+      h = al_get_bitmap_height(mBackground);
+  for (int x = 0; x < mInterface->GetWindowSize().x; x += w) {
+    for (int y = 0; y < mInterface->GetWindowSize().y; y += h) {
+      al_draw_bitmap(mBackground, x, y, 0);
+    }
+  }
 }
 
 void DrawingClass::Run () {

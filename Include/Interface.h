@@ -85,6 +85,7 @@ class Interface {
       mPath.push_back(aux);
     }
     float GetTileSize () { return mTileSize; }
+    Vector2i GetWindowSize () { return mWindowSize; }
   private:
     Vector2i mWindowSize, mMapSize;
     Vector2f mHome, mSpawn;
