@@ -126,14 +126,23 @@ void Interface::Draw () {
   int numColumns = mMapSize.y/mTileSize;
   Vector3i color(30, 30, 30);
 
+  //Draw background per tile
+  for (int i = 0; i < numLines; i++) {
+    for (int j = 0; j < numColumns; j++) {
+      float x = i*mTileSize, y = j*mTileSize;
+      mDrawingClass->DrawBackground(x, y);
+    }
+  }
+  //
+
   //Grid lines
-  mDrawingClass->DrawFilledRectangle(0, 0, mMapSize.x, mMapSize.y, 5, 5, 5);
-  for (int i = 1; i <= numLines; i++) {
-    mDrawingClass->DrawLine(i*mTileSize, 0, i*mTileSize, mMapSize.y, color, 1);
-  }
-  for (int j = 1; j <= numColumns; j++) {
-    mDrawingClass->DrawLine(0, j*mTileSize, mMapSize.x, j*mTileSize, color, 1);
-  }
+/*   for (int i = 1; i <= numLines; i++) {
+ *     mDrawingClass->DrawLine(i*mTileSize, 0, i*mTileSize, mMapSize.y, color, 1);
+ *   }
+ *   for (int j = 1; j <= numColumns; j++) {
+ *     mDrawingClass->DrawLine(0, j*mTileSize, mMapSize.x, j*mTileSize, color, 1);
+ *   }
+ */
   //Grid lines
 
   //Draw path

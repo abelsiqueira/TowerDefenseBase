@@ -26,6 +26,7 @@ typedef void (*pVoidFVoid) (void);
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_audio.h>
 #include <allegro5/allegro_acodec.h>
+#include <allegro5/allegro_image.h>
 #include <string>
 #include "Vectors.h"
 #include "Definitions.h"
@@ -230,6 +231,7 @@ class DrawingClass {
       DrawFilledEllipse(c.x, c.y, rx, ry, color.x, color.y, color.z);
     }
 
+    void DrawBackground (float x, float y);
     void Done () { mDone = true; }
   private:
     bool mDone;
@@ -243,6 +245,8 @@ class DrawingClass {
     ALLEGRO_FONT *mSmallFont;
 
     ALLEGRO_AUDIO_STREAM *mMusic;
+
+    ALLEGRO_BITMAP *mBackground;
 
     Interface *mInterface;
 };

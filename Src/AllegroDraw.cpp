@@ -78,7 +78,7 @@ DrawingClass::DrawingClass (int w, int h, Interface *interface) {
   assert(al_install_audio());
   assert(al_init_acodec_addon());
   assert(al_reserve_samples(1));
-
+  al_init_image_addon();
 
   al_register_event_source(mEventQueue, al_get_display_event_source(mDisplay));
   al_register_event_source(mEventQueue, al_get_timer_event_source(mTimer));
@@ -94,16 +94,29 @@ DrawingClass::DrawingClass (int w, int h, Interface *interface) {
   al_set_audio_stream_gain(mMusic, 0.1);
   al_set_audio_stream_playing(mMusic, true);
 
+//  mBackground = al_create_bitmap(tileSize, tileSize);
+  mBackground = al_load_bitmap("Images/grass.png");
+
+/*   al_set_target_bitmap(mBackground);
+ *   al_draw_filled_circle(tileSize/2, tileSize/2, tileSize/2, al_map_rgb(0, 255, 0));
+ *   al_set_target_bitmap(al_get_backbuffer(mDisplay));
+ */
+
   CreateMap();
 }
 
 DrawingClass::~DrawingClass () {
+  al_destroy_bitmap(mBackground);
   al_destroy_font(mBigFont);
   al_destroy_font(mFont);
   al_destroy_font(mSmallFont);
   al_destroy_timer(mTimer);
   al_destroy_event_queue(mEventQueue);
   al_destroy_display(mDisplay);
+}
+
+void DrawingClass::DrawBackground(float x, float y) {
+  al_draw_bitmap(mBackground, x, y, 0);
 }
 
 void DrawingClass::Run () {
