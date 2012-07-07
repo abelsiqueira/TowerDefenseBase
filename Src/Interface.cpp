@@ -449,7 +449,7 @@ void Interface::InsertTower (KeyCode kc) {
   }
 }
 
-void Interface::Mouse (MouseCode mc) {
+void Interface::Mouse (MouseCode ) {
   if (!mInsertingTower)
     return;
   Vector2f position = mDrawingClass->GetMousePosition();
@@ -468,7 +468,7 @@ void Interface::Mouse (MouseCode mc) {
   }
 }
 
-void Interface::ReadLevel (char *level) {
+void Interface::ReadLevel (const char *level) {
   std::ifstream file(level);
   size_t N = ConstHorizontalTiles*ConstVerticalTiles;
   int startX = ConstHorizontalTiles, startY = ConstVerticalTiles;

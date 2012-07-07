@@ -59,7 +59,7 @@ class Interface {
     void Mouse (MouseCode);
     void Run ();
     void InsertTower (KeyCode);
-    void ReadLevel (char *str);
+    void ReadLevel (const char *str);
 
     DrawingClass *Drawing () { return mDrawingClass; }
 

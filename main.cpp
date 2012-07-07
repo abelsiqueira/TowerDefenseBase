@@ -18,13 +18,16 @@
 #include <iostream>
 #include "Interface.h"
 #include <cstdlib>
+#include <string>
 #include <ctime>
 
 int main () {
   srand(time(0));
   Interface interface;
 
-  interface.ReadLevel("Maps/level2");
+  std::string filename("Maps/level2");
+
+  interface.ReadLevel(filename.c_str());
 
   interface.CreateEnemy(1, ET_Skeleton);
   interface.CreateEnemy(1, ET_Skeleton);
