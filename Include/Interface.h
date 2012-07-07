@@ -29,7 +29,7 @@ typedef std::list <Enemy*> Wave;
 typedef unsigned int uint;
 
 const uint ConstFps = 180;
-const int ConstStartingGold = 100;
+const int ConstStartingGold = 150;
 const size_t ConstHorizontalTiles = 30;
 const size_t ConstVerticalTiles = 20;
 

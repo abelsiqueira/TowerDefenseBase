@@ -91,6 +91,7 @@ DrawingClass::DrawingClass (int w, int h, Interface *interface) {
   mSmallFont = al_load_font("DejaVuSans.ttf", tileSize/4, 0);
   mMusic = al_load_audio_stream("Audio/Samples/bu-the-green-wizards.it", 4, 1024);
   al_attach_audio_stream_to_mixer(mMusic, al_get_default_mixer());
+  al_set_audio_stream_gain(mMusic, 0.1);
   al_set_audio_stream_playing(mMusic, true);
 
   CreateMap();

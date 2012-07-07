@@ -262,10 +262,10 @@ void Interface::CreateEnemy (EnemyType et) {
 }
 
 void Interface::CreateTower (TowerType tt, float x, float y) {
-  x = static_cast<int>(x/mTileSize)*mTileSize;
-  y = static_cast<int>(y/mTileSize)*mTileSize;
-  x += mTileSize/2;
-  y += mTileSize/2;
+  int i = static_cast<int>(x/mTileSize), j = static_cast<int>(y/mTileSize);
+  mGrid[i + j*ConstHorizontalTiles] = 't';
+  x = (i + 0.5)*mTileSize;
+  y = (j + 0.5)*mTileSize;
   switch(tt) {
     case TT_LightTower:
       LightTower *aux = new LightTower(x, y);
@@ -442,6 +442,10 @@ void Interface::Mouse (MouseCode mc) {
   if (!mInsertingTower)
     return;
   Vector2f position = mDrawingClass->GetMousePosition();
+  int i = static_cast<int>(position.x/mTileSize);
+  int j = static_cast<int>(position.y/mTileSize);
+  if (mGrid[i + j*ConstHorizontalTiles] != '.')
+    return;
   switch (mNextTower) {
     case 1:
       CreateTower (TT_LightTower, position.x, position.y);
