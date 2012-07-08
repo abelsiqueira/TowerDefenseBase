@@ -233,6 +233,29 @@ class DrawingClass {
 
     void DrawBackground ();
     void Done () { mDone = true; }
+
+    void SetMusic (const char *audioFile) {
+      if (mMusic) {
+        al_destroy_audio_stream(mMusic);
+      }
+      mMusic = al_load_audio_stream(audioFile, 4, 1024);
+      al_attach_audio_stream_to_mixer(mMusic, al_get_default_mixer());
+    }
+    void SetMusicVolume (float v) {
+      if ( (v < 0) || (v > 1) )
+        return;
+      al_set_audio_stream_gain(mMusic, v);
+    }
+    void PlayMusic () {
+      if (!mMusic)
+        return;
+      al_set_audio_stream_playing(mMusic, true);
+    }
+    void StopMusic () {
+      if (!mMusic)
+        return;
+      al_set_audio_stream_playing(mMusic, false);
+    }
   private:
     bool mDone;
     Vector2f mMousePosition;

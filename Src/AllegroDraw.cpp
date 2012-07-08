@@ -89,10 +89,7 @@ DrawingClass::DrawingClass (int w, int h, Interface *interface) {
   mBigFont = al_load_font("DejaVuSans.ttf", tileSize, 0);
   mFont = al_load_font("DejaVuSans.ttf", tileSize/2, 0);
   mSmallFont = al_load_font("DejaVuSans.ttf", tileSize/4, 0);
-  mMusic = al_load_audio_stream("Audio/Samples/bu-the-green-wizards.it", 4, 1024);
-  al_attach_audio_stream_to_mixer(mMusic, al_get_default_mixer());
-  al_set_audio_stream_gain(mMusic, 0.1);
-  al_set_audio_stream_playing(mMusic, true);
+  mMusic = 0;
 
 //  mBackground = al_create_bitmap(tileSize, tileSize);
   mBackground = al_load_bitmap("Images/grass.png");
@@ -106,7 +103,10 @@ DrawingClass::DrawingClass (int w, int h, Interface *interface) {
 }
 
 DrawingClass::~DrawingClass () {
-  al_destroy_bitmap(mBackground);
+  if (mBackground)
+    al_destroy_bitmap(mBackground);
+  if (mMusic)
+    al_destroy_audio_stream(mMusic);
   al_destroy_font(mBigFont);
   al_destroy_font(mFont);
   al_destroy_font(mSmallFont);

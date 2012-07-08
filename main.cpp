@@ -36,6 +36,7 @@ int main () {
 
   interface.CreateTower(TT_LightTower, 500, 300);
 
+  interface.SetMusic("Audio/Samples/bu-the-green-wizards.it");
 
   interface.Run();
 

@@ -60,6 +60,9 @@ class Interface {
     void Run ();
     void InsertTower (KeyCode);
     void ReadLevel (const char *str);
+    void SetMusic (std::string audioFile) {
+      mDrawingClass->SetMusic(audioFile.c_str());
+    }
 
     DrawingClass *Drawing () { return mDrawingClass; }
 

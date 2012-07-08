@@ -206,6 +206,8 @@ void Interface::Draw () {
 }
 
 void Interface::Run () {
+  mDrawingClass->SetMusicVolume(0.1);
+  mDrawingClass->PlayMusic();
   mDrawingClass->Run();
 }
 
