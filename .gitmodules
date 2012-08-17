@@ -1,0 +1,3 @@
+[submodule "Vectors"]
+	path = Vectors
+	url = git://github.com/abelsiqueira/Vectors.git

@@ -1,7 +1,7 @@
 CXX = g++
 CXXFLAGS = -Wall -Wextra -ggdb 
 ROOTDIR = ..
-I = -I$(ROOTDIR)/Include -I$(ROOTDIR)/../Vectors/Include
+I = -I$(ROOTDIR)/Include -I$(ROOTDIR)/Vectors/Include
 
 TOWERS = Light_Tower.o Tower.o
 ENEMIES = Skeleton.o Enemy.o
